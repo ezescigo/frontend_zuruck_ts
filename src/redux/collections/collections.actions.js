@@ -58,7 +58,7 @@ export const fetchCollectionsStartAsync = ({
     console.log(category, subcategory);
     console.log(getState().collections);
 
-    let apiUrl = `/api/products/${category}/${subcategory}`;
+    let apiUrl = `https://zuruck-backend.herokuapp.com/api/products/${category}/${subcategory}`;
 
     // Only fetch if Category is not already in Collections *1 fetch per session*, can improve it with a timeout or bouncing logic
     // If no category is asked, thus is for /shop main page, then will get back a bunch of products as a preview.
@@ -87,7 +87,7 @@ export const fetchQueryStartAsync = ({
   return (dispatch, getState) => {
     const isFetching = getState().collections.isFetching;
     const cat = subcategory || category || '';
-    const apiUrl = `/api/products?category=${category}&subcategory=${subcategory}`;
+    const apiUrl = `https://zuruck-backend.herokuapp.com/api/products?category=${category}&subcategory=${subcategory}`;
 
     // Only fetch if Category is not already in Collections *1 fetch per session*, can improve it with a timeout or bouncing logic
     // If no category is asked, thus is for /shop main page, then will get back a bunch of products as a preview.
