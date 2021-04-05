@@ -1,0 +1,22 @@
+.cart-icon {
+  margin: auto;
+  display: block;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+
+  .shopping-icon {
+    vertical-align: top;
+  }
+
+  .cart-item-count {
+    position: relative;
+    margin-left: 3px;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: 'Times New Roman', Times, serif;
+    letter-spacing: 0.05em;
+  }
+}
+
+// ARREGLAR ICONO
