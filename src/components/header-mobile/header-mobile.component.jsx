@@ -67,7 +67,7 @@ const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isL
             </OptionLink>
           )}
         <OptionLink to={{ 
-            pathname: '/wishlist', 
+            pathname: '/checkout', 
             state: { from: location.pathname,
                     active: 'wishlist'
                     }
@@ -82,7 +82,7 @@ const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isL
 
         <OptionLink 
             to={{ 
-              pathname: 'checkout', 
+              pathname: '/checkout', 
               state: { from: location.pathname,
                        active: 'checkout' 
                       }
