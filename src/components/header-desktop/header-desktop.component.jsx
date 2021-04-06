@@ -98,7 +98,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
         <OptionsPanel>
           { currentUser ? 
             (
-              <OptionLink as='div' onClick={() => auth.signOut()}>
+              <OptionLink as='div' onClick={() => auth.signOut()} styled={location.pathname === '/' ? false : true}>
                 { !isMobile
                 ? <span className='sign-salute'>Welcome, {currentUser.displayName}!</span>
                 : null
@@ -106,7 +106,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
                 <IoPerson size={30} className='navbar-icon' />
               </OptionLink>
             ) : (
-              <OptionLink to='/signin'>
+              <OptionLink to='/signin' styled={location.pathname === '/' ? false : true}>
                 <IoPersonOutline size={30} className='navbar-icon' />
               </OptionLink>
             )}
@@ -115,7 +115,9 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
             state: { from: location.pathname,
                      active: 'wishlist' 
                     }
-          }} >
+          }} 
+            styled={location.pathname === '/' ? false : true}
+          >
             { wishlistItemCount > 0
               ? (<div>
                   <AiFillHeart size={30} className='navbar-icon' onClick={() => toggleCartHidden('wishlist')} />
@@ -124,7 +126,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
             }
               
           </OptionLink>
-          <OptionLink to='#'>
+          <OptionLink to='#' styled={location.pathname === '/' ? false : true}>
             <CartIcon mobile={isMobile} isxsdevice={isxsdevice} onClick={() => toggleCartHidden('cart')} />
           </OptionLink>
         </OptionsPanel>

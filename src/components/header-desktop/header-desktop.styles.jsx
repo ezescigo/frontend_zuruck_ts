@@ -169,6 +169,7 @@ export const NavbarItem = styled.div`
   -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
   // or
   text-shadow: #646161 0px 0.5px 0.5px;
+  color: white;
 
   :nth-child(2) {
     flex: 1;
@@ -229,4 +230,13 @@ export const NavbarMenuItem = styled.div`
   // or
   text-shadow: #646161 0px 0.5px 0.5px;
   margin: 10px;
+  color: white;
+
+  ${HeaderContainer}:hover & {
+    ${({ styled }) => !styled && 
+      css`
+      color: #383636 ;
+      text-shadow: 0.5px 0.5px 0.5px #464747; 
+    `}
+  }
 `;
