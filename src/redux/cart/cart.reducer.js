@@ -4,7 +4,8 @@ import { removeItemFromCart } from './cart.utils';
 
 const INITIAL_STATE = {
   hidden: true,
-  cartItems: []
+  cartItems: [],
+  menuActive: ''
 };
 
 const cartReducer = (state = INITIAL_STATE, action) => {
@@ -14,10 +15,16 @@ const cartReducer = (state = INITIAL_STATE, action) => {
         ...state,
         hidden: false,
       }
+    case CartActionTypes.CLOSE_CART_DROPDOWN:
+      return {
+        ...state,
+        hidden: true,
+      }
     case CartActionTypes.TOGGLE_CART_HIDDEN:
       return {
         ...state,
-        hidden: !state.hidden
+        hidden: !state.hidden,
+        menuActive: action.payload
       };
     case CartActionTypes.ADD_ITEM:
       return {

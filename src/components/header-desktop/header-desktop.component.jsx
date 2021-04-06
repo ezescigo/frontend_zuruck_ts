@@ -127,7 +127,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
           
           
           <OptionLink to='#'>
-            <CartIcon mobile={isMobile} isxsdevice={isxsdevice} onClick={() => toggleCartHidden()} />
+            <CartIcon mobile={isMobile} isxsdevice={isxsdevice} onClick={() => toggleCartHidden('cart')} />
           </OptionLink>
         </OptionsPanel>
       </OptionsContainerTop>

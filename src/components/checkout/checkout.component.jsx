@@ -16,13 +16,13 @@ import { selectCartItemsCount, selectCartItems, selectCartTotal } from '../../re
 
 import './checkout.styles.scss';
 
-const CheckOut = ({ history, active, isDropdown, itemCount, cartItems, wishlist, total, goToCheckOut, toggleCartHidden }) => {
+const CheckOut = ({ history, active, isDropdown, itemCount, cartItems, wishlist, total, goToCheckOut, closeCartHidden }) => {
   const [isActive, setIsActive] = useState(active);
   console.log(isActive);
 
   const closeCheckOut = () => {
     if (isDropdown) {
-      toggleCartHidden();
+      closeCartHidden();
     } else {
       history.goBack();
     }
@@ -103,7 +103,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleCartHidden: () => dispatch(toggleCartHidden())
+  closeCartHidden: () => dispatch(closeCartHidden())
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CheckOut));

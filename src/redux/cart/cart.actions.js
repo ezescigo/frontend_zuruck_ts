@@ -1,12 +1,19 @@
 import CartActionTypes from './cart.types';
 
-export const toggleCartHidden = () => ({
-  type: CartActionTypes.TOGGLE_CART_HIDDEN
+export const toggleCartHidden = menuActive => ({
+  type: CartActionTypes.TOGGLE_CART_HIDDEN,
+  payload: menuActive
 });
 
 export const openCartDropdown = () => ({
   type: CartActionTypes.OPEN_CART_DROPDOWN
 });
+
+export const closeCartDropdown = () => ({
+  type: CartActionTypes.CLOSE_CART_DROPDOWN
+});
+
+
 
 export const addItem = item => ({
   type: CartActionTypes.ADD_ITEM,

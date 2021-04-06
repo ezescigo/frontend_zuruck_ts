@@ -4,8 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
-import { selectCartItems, selectCartHidden } from '../../redux/cart/cart.selectors';
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import { selectCartItems, selectCartHidden, selectMenuActive } from '../../redux/cart/cart.selectors';
+import { toggleCartHidden, closeCartDropdown } from '../../redux/cart/cart.actions';
 import { useOnClickOutside } from '../../hooks';
 
 // import { CSSTransition } from 'react-transition-group';
@@ -13,12 +13,12 @@ import { useOnClickOutside } from '../../hooks';
 import CheckOut from '../checkout/checkout.component';
 import { CartDropdownContainer } from './cart-dropdown.styles';
 
-const CartDropdown = ({ hidden, toggleCartHidden, history, location }) => {
+const CartDropdown = ({ hidden, menuActive, closeCartDropdown, history, location }) => {
   const node = useRef();
-  useOnClickOutside(node, () => toggleCartHidden());
+  useOnClickOutside(node, () => closeCartDropdown());
 
   const handleGoToCheckOut = () => {
-    toggleCartHidden();
+    closeCartDropdown();
     history.push({ 
       pathname: '/checkout', 
       state: { from: location.pathname,
@@ -33,6 +33,7 @@ const CartDropdown = ({ hidden, toggleCartHidden, history, location }) => {
         hidden={hidden} 
         isDropdown={true} 
         goToCheckOut={() => handleGoToCheckOut()}
+        active={menuActive}
       />
     </CartDropdownContainer>
   )
@@ -40,11 +41,13 @@ const CartDropdown = ({ hidden, toggleCartHidden, history, location }) => {
 
 const mapStateToProps = createStructuredSelector({
   cartItems: selectCartItems,
-  hidden: selectCartHidden
+  hidden: selectCartHidden,
+  menuActive: selectMenuActive
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleCartHidden: () => dispatch(toggleCartHidden())
+  toggleCartHidden: () => dispatch(toggleCartHidden()),
+  closeCartDropdown: () => dispatch(closeCartDropdown())
 });
 
 
