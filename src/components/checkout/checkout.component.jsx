@@ -10,7 +10,7 @@ import StripeCheckoutButton from '../../components/stripe-button/stripe-button.c
 import { RiShoppingCartFill } from 'react-icons/ri';
 import { AiFillHeart } from 'react-icons/ai';
 
-import { toggleCartHidden } from '../../redux/cart/cart.actions';
+import { closeCartHidden } from '../../redux/cart/cart.actions';
 import { selectWishlistItems } from '../../redux/wishlist/wishlist.selectors';
 import { selectCartItemsCount, selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 
