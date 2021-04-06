@@ -22,7 +22,7 @@ export const fetchCollectionsFailure = errorMessage => ({
 export const fetchPreviewStartAsync = () => (dispatch, getState) => {
   const isFetching = getState().collections.isFetching;
   const collections = getState().collections.collections;
-  let apiUrl = `/api/products/preview`;
+  let apiUrl = `https://zuruck-backend.herokuapp.com/api/products/preview`;
 
   if (!isFetching & (!('preview' in collections))) {
     dispatch(fetchCollectionsStart(apiUrl));
