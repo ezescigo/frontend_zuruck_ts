@@ -91,8 +91,8 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
       styled={location.pathname === '/' ? false : true}
       onMouseLeave={() => setIsActive('')}>
       <OptionsContainerTop>
-        <LogoContainer to='/'>
-          <LogoText>ZURÜCK</LogoText>
+        <LogoContainer to='/' styled={location.pathname === '/' ? false : true}>
+          <LogoText >ZURÜCK</LogoText>
         </LogoContainer>
         <SideSearchBox ref={ref} headerWidth={bounds.left} />
         <OptionsPanel>
@@ -124,8 +124,6 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
             }
               
           </OptionLink>
-          
-          
           <OptionLink to='#'>
             <CartIcon mobile={isMobile} isxsdevice={isxsdevice} onClick={() => toggleCartHidden('cart')} />
           </OptionLink>
@@ -149,6 +147,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
               key={category._id}
               onMouseEnter={() => {setIsActive(category.name)}}
               onClick={() => history.push(`/shop/${category.slug}`)}
+              styled={location.pathname === '/' ? false : true}
             >
               {category.name}
             </NavbarItem>

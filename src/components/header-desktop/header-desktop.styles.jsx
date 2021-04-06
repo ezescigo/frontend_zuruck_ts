@@ -14,19 +14,16 @@ export const HeaderContainer = styled.div`
   padding: 15px 10px 10px 10px;
   background-color: transparent;
   z-index: 30;
-
-
   transition: all 0.3s ease-in-out;
 
   :hover {
-    background-color: rgba(255, 255, 255, 0.95);
+    
     /* box-shadow: rgba(50, 50, 93, 0.3) 0px 50px 100px -20px, rgba(0, 0, 0, 0.4) 0px 30px 60px -30px, rgba(10, 37, 64, 0.45) 0px -2px 6px 0px inset; */
     /* -moz-box-shadow:    inset  0 -10px 20px -10px grey;
     -webkit-box-shadow: inset  0 -10px 20px -10px grey; */
 
-    ${({ styled }) => styled && 
-      css`background-color: rgba(41, 41, 41, 0.95);
-          border-bottom: 1px white solid;`
+    ${({ styled }) => !styled && 
+      css`background-color: rgba(255, 255, 255, 0.95)`
     }
   }
 
@@ -42,8 +39,8 @@ export const LogoContainer = styled(Link)`
   height: 100%;
   width: auto;
   display: flex;
-    align-items: center;
-    justify-content: center;
+  align-items: center;
+  justify-content: center;
 
   text-align: center;
   -webkit-text-stroke: 0.45px;
@@ -53,7 +50,9 @@ export const LogoContainer = styled(Link)`
   text-shadow: #fff 0px 1px 1px;
 
   ${HeaderContainer}:hover & {
-    text-shadow: #363434 0px 1px 1px;
+    ${({ styled }) => !styled && 
+      css`text-shadow: #363434 0px 1px 1px;`
+    }
   }
 `;
 
@@ -69,8 +68,10 @@ export const LogoText = styled.span`
     isMobile ? (isxsdevice ? '18px' : '26px') : '52px'};
 
   ${HeaderContainer}:hover & {
-    color: #5a5555 ;
-    text-shadow: 0.5px 0.5px 0.5px #ced1d0, 1px 1px 1px grey; 
+    ${({ styled }) => !styled && 
+      css`color: #5a5555 ;
+        text-shadow: 0.5px 0.5px 0.5px #ced1d0, 1px 1px 1px grey;
+    `}
   }
 `;
 
@@ -132,8 +133,12 @@ export const OptionLink = styled(Link)`
   }
 
   ${HeaderContainer}:hover & {
-    color: #312f2f ;
-    text-shadow: 0.5px 0.5px 0.5px #ced1d0;
+    ${({ styled }) => !styled && 
+      css`
+      color: #312f2f ;
+      text-shadow: 0.5px 0.5px 0.5px #ced1d0;
+    `}
+    
   }
 `;
 
@@ -188,8 +193,12 @@ export const NavbarItem = styled.div`
   }
 
   ${HeaderContainer}:hover & {
-    color: #383636 ;
-    text-shadow: 0.5px 0.5px 0.5px #464747; 
+    ${({ styled }) => !styled && 
+      css`
+      color: #383636 ;
+      text-shadow: 0.5px 0.5px 0.5px #464747; 
+    `}
+    
 
     /* ${({ active }) => active
       ? css`border: 1px solid black;`
