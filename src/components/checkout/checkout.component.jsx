@@ -10,19 +10,19 @@ import StripeCheckoutButton from '../../components/stripe-button/stripe-button.c
 import { RiShoppingCartFill } from 'react-icons/ri';
 import { AiFillHeart } from 'react-icons/ai';
 
-import { closeCartHidden } from '../../redux/cart/cart.actions';
+import { closeCartDropdown } from '../../redux/cart/cart.actions';
 import { selectWishlistItems } from '../../redux/wishlist/wishlist.selectors';
 import { selectCartItemsCount, selectCartItems, selectCartTotal } from '../../redux/cart/cart.selectors';
 
 import './checkout.styles.scss';
 
-const CheckOut = ({ history, active, isDropdown, itemCount, cartItems, wishlist, total, goToCheckOut, closeCartHidden }) => {
+const CheckOut = ({ history, active, isDropdown, itemCount, cartItems, wishlist, total, goToCheckOut, closeCartDropdown }) => {
   const [isActive, setIsActive] = useState(active);
   console.log(isActive);
 
   const closeCheckOut = () => {
     if (isDropdown) {
-      closeCartHidden();
+      closeCartDropdown();
     } else {
       history.goBack();
     }
@@ -103,7 +103,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeCartHidden: () => dispatch(closeCartHidden())
+  closeCartDropdown: () => dispatch(closeCartDropdown())
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CheckOut));
