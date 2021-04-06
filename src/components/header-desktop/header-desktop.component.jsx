@@ -118,9 +118,9 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
           }} >
             { wishlistItemCount > 0
               ? (<div>
-                  <AiFillHeart size={30} className='navbar-icon' />
+                  <AiFillHeart size={30} className='navbar-icon' onClick={() => toggleCartHidden('wishlist')} />
                 </div>)
-              : <AiOutlineHeart size={30} className='navbar-icon' />
+              : <AiOutlineHeart size={30} className='navbar-icon' onClick={() => toggleCartHidden('wishlist')} />
             }
               
           </OptionLink>
@@ -187,7 +187,7 @@ const mapStateToProps = createStructuredSelector({
 });
 
 const mapDispatchToProps = dispatch => ({
-  toggleCartHidden: () => dispatch(toggleCartHidden())
+  toggleCartHidden: (menuActive) => dispatch(toggleCartHidden(menuActive))
 });
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(HeaderDesktop));
