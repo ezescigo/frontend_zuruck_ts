@@ -27,7 +27,7 @@ class App extends React.Component {
     super(props)
   }
   // eslint-disable-next-line no-undef
-  // unsubscribeFromAuth = null;
+  unsubscribeFromAuth = null;
 
   componentDidMount() {
     const { setCurrentUser, isLoading, fetchCategoriesOffline, fetchCollectionsOffline, fetchCategoriesStartAsync, fetchPreviewStartAsync } = this.props;
@@ -38,26 +38,26 @@ class App extends React.Component {
     // fetchCategoriesOffline();
     // fetchCollectionsOffline();
 
-    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-    //   // check if signed in
-    //   if (userAuth) {
-    //     // Get back the userRef obj from our createUserProfileDocument method passing userAuth. If it exists in our db, will bring the data, if not will create a new one.
-    //     const userRef = await createUserProfileDocument(userAuth);
-    //     // subscribe/listen to any changes in userRef data
-    //     userRef.onSnapshot(snapShot => {
-    //       setCurrentUser({
-    //         id: snapShot.id,
-    //         ...snapShot.data()
-    //       });
-    //     });
-    //   } else {
-    //     setCurrentUser(userAuth);
-    //   }
-    // });
+    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
+      // check if signed in
+      if (userAuth) {
+        // Get back the userRef obj from our createUserProfileDocument method passing userAuth. If it exists in our db, will bring the data, if not will create a new one.
+        const userRef = await createUserProfileDocument(userAuth);
+        // subscribe/listen to any changes in userRef data
+        userRef.onSnapshot(snapShot => {
+          setCurrentUser({
+            id: snapShot.id,
+            ...snapShot.data()
+          });
+        });
+      } else {
+        setCurrentUser(userAuth);
+      }
+    });
   }
 
   componentWillUnmount() {
-    // this.unsubscribeFromAuth();
+    this.unsubscribeFromAuth();
   }
 
   render() {
