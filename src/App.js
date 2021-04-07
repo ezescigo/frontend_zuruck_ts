@@ -69,7 +69,7 @@ class App extends React.Component {
       <div className='wrapper'>
         <Rodal
           visible={this.state.popUp}
-          onClose={this.setState({ popUp: false })}
+          onClose={() => this.setState({ popUp: false })}
           animation={'zoom'}>
           This is a project in progress.
         </Rodal>
