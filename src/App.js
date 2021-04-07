@@ -24,8 +24,10 @@ import { SpinnerOverlay, SpinnerContainer } from './components/with-spinner/with
 
 class App extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
+    this.state = { popUp: true };
   }
+
   // eslint-disable-next-line no-undef
   unsubscribeFromAuth = null;
 
@@ -63,6 +65,14 @@ class App extends React.Component {
   render() {
     return (
       <div className='wrapper'>
+        {this.state.popUp &&
+          <div className='popup-overlay'>
+            <div className='popup'>
+              This is a project in progress.
+              <button onClick={() => this.setState({ popUp: false })}>OK, got it!</button>
+            </div>
+          </div>
+        }
         {this.props.isLoading
           ? (<SpinnerOverlay>
             <SpinnerContainer />
