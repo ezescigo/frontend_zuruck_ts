@@ -1,22 +1,37 @@
 import React, { useState, useEffect, useCallback } from "react";
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+
 import { DotButton } from "./slider-carousel-buttons";
 import { useRecursiveTimeout } from "./useRecursiveTimeout";
 import { useEmblaCarousel } from "embla-carousel/react";
+
 import "./slider-carousel.styles.scss";
+
+import { selectMobileView } from '../../redux/app/app.selectors.js';
+
 import media1 from '../../assets/jd-bg.jpg';
 import media2 from '../../assets/whisky-bg.jpg';
 import media3 from '../../assets/wine-bg.jpg';
+import media1Mobile from '../../assets/jd-bg-small.jpg';
+import media2Mobile from '../../assets/whisky-bg-small.jpg';
+import media3Mobile from '../../assets/wine-bg-small.jpg';
 
 const AUTOPLAY_INTERVAL = 6000;
 
-const EmblaCarousel = ({ slides }) => {
+const EmblaCarousel = ({ slides, isMobile }) => {
   const [viewportRef, embla] = useEmblaCarousel({ loop: true });
   // const [prevBtnEnabled, setPrevBtnEnabled] = useState(false);
   // const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
-  let media = [media1, media2, media3];
+  if (isMobile) {
+    let media = [media1Mobile, media2Mobile, media3Mobile]
+  } else {
+    let media = [media1, media2, media3];
+  }
+  
   // sections.map(section => media.push(section.imageUrl));
   // console.log(media);
   const mediaByIndex = index => media[index % media.length];
@@ -98,4 +113,8 @@ const EmblaCarousel = ({ slides }) => {
   );
 };
 
-export default EmblaCarousel;
+const mapStateToProps = createStructuredSelector({
+  isMobile: selectMobileView
+});
+
+export default connect(mapStateToProps)(EmblaCarousel);
