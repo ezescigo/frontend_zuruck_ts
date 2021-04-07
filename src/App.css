@@ -24,12 +24,12 @@ p {
 };
 
 .popup-container {
-  position: relative;
+  position: absolute;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   top: 0;
   background-color: rgba(116, 112, 112, 0.7);
-  z-index: 1000;
+  z-index: 10000;
 }
 
 .popup-box {
