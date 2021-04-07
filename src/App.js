@@ -68,10 +68,17 @@ class App extends React.Component {
     return (
       <div className='wrapper'>
         <Rodal
+          className='popup-container'
           visible={this.state.popUp}
           onClose={() => this.setState({ popUp: false })}
           animation={'zoom'}>
-          This is a project in progress.
+          <div className='popup-text'>
+            <p>
+              This is a project in progress. You may (will) find bugs and unfinished features.
+              Thank you for your time :)
+              Ezequiel.
+              </p>
+          </div>
         </Rodal>
         {this.props.isLoading
           ? (<SpinnerOverlay>
