@@ -66,8 +66,8 @@ class App extends React.Component {
     return (
       <div className='wrapper'>
         {this.state.popUp &&
-          <div className='popup-overlay'>
-            <div className='popup'>
+          <div className='popup-container'>
+            <div className='popup-box'>
               This is a project in progress.
               <button onClick={() => this.setState({ popUp: false })}>OK, got it!</button>
             </div>
