@@ -104,11 +104,11 @@ class App extends React.Component {
                 }
               />
             </Switch>
+            <Footer />
           </React.Fragment>
-          )}
-        <Footer />
+          )
+        }
       </div>
-
     )
   }
 }
