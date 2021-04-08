@@ -7,6 +7,7 @@ import './App.css';
 
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
+
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component';
@@ -65,17 +66,27 @@ class App extends React.Component {
   }
 
   render() {
+
+    const RodalStyles = {
+      height: 'auto',
+      bottom: 'auto',
+      top: '50%',
+      transform: 'translateY(-50%)'
+    }
+
     return (
       <div className='wrapper'>
         <Rodal
           className='popup-container'
           visible={this.state.popUp}
           onClose={() => this.setState({ popUp: false })}
-          animation={'zoom'}>
+          animation={'zoom'}
+          customStyles={RodalStyles}>
           <div className='popup-text'>
             <p>
-              This is a project in progress. You may (will) find bugs and unfinished features.
-              Thank you for your time :)
+              This is a project in progress.
+              You may (will) find bugs and unfinished features.
+              Hope you like it :)
               Ezequiel.
               </p>
           </div>

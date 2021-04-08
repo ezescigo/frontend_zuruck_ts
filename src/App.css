@@ -29,6 +29,7 @@ p {
   font-weight: bold;
   font-size: 16px;
   line-height: 28px;
+  max-width: 90%;
 }
 
 /* https://fkhadra.github.io/react-toastify/how-to-style/ */
