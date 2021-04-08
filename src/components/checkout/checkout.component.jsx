@@ -47,7 +47,7 @@ const CheckOut = ({ history, active, isDropdown, itemCount, cartItems, wishlist,
           <span onClick={() => closeCheckOut()}>&#x2716;</span>
         </div>
       </div>
-      { isActive === 'checkout'
+      { isActive === 'cart'
       ? <React.Fragment>
           <div className='checkout-main'>
             {cartItems.length

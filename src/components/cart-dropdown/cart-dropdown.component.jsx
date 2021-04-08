@@ -22,7 +22,7 @@ const CartDropdown = ({ hidden, menuActive, closeCartDropdown, history, location
     history.push({ 
       pathname: '/checkout', 
       state: { from: location.pathname,
-               active: 'checkout',
+               active: 'cart',
                isMobile: false,
               }})
   }
