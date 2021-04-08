@@ -26,10 +26,12 @@ const EmblaCarousel = ({ slides, isMobile }) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
 
+  let media = [];
+
   if (isMobile) {
-    let media = [media1Mobile, media2Mobile, media3Mobile]
+    media = [media1Mobile, media2Mobile, media3Mobile]
   } else {
-    let media = [media1, media2, media3];
+    media = [media1, media2, media3]
   }
   
   // sections.map(section => media.push(section.imageUrl));
