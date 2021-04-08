@@ -133,7 +133,7 @@
 
 @media (max-width: 600px) {
   .checkout-main {
-    width: 410px;
+    min-width: 340px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
