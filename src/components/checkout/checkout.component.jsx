@@ -31,7 +31,7 @@ const CheckOut = ({ history, active, isDropdown, itemCount, cartItems, wishlist,
   return(
     <React.Fragment>
       <div className='checkout-header'>
-        <div className={`checkout-header-title ${isActive === 'cart' ? 'active' : ''}`} onClick={() => setIsActive('checkout')}>
+        <div className={`checkout-header-title ${isActive === 'cart' ? 'active' : ''}`} onClick={() => setIsActive('cart')}>
           <div className='cart-icon'>
             <RiShoppingCartFill size={30} className='shopping-icon' />
           </div>

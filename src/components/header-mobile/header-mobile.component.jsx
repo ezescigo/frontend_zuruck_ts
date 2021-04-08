@@ -84,7 +84,7 @@ const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isL
             to={{ 
               pathname: '/checkout', 
               state: { from: location.pathname,
-                       active: 'checkout' 
+                       active: 'cart' 
                       }
               }}
            >
