@@ -1,16 +1,17 @@
 .footer-container {
-  height: 600px;
   width: 100%;
-  background-color: rgb(136, 130, 130);
+  background-color: rgb(226, 226, 226);
   display: block;
 
-  .footer-columns {
+  .footer-column {
     display: block;
     position: relative;
     width: 100%;
     margin: 0 auto;
     font-family: Helvetica, Arial, sans-serif;
     font-size: 14px;
+    line-height: 35px;
+    letter-spacing: 1px;
   }
 
   .bottom {
@@ -44,7 +45,7 @@
       display: flex;
       align-items: center;
       padding: 0 !important;
-      
+      letter-spacing: .5px;
       
 
       @media (max-width: 992px) {
@@ -54,6 +55,16 @@
         flex-direction: column-reverse;
         align-items: center;
         justify-content: center;
+      }
+
+      .legal-links {
+        justify-content: center;
+        order: 1;
+
+        &:span {
+          @media (max-width: 992px) {
+          }
+        }
       }
     }
   }

@@ -18,10 +18,10 @@ const Footer = () => {
       </div>
       <div className='bottom'>
         <div className='payment-methods'>
-          <RiVisaLine size={20} />
-          <RiMastercardLine size={20} />
-          <RiPaypalLine size={20} />
-          <SiBitcoin size={20} />
+          <RiVisaLine size={30} />
+          <RiMastercardLine size={30} />
+          <RiPaypalLine size={30} />
+          <SiBitcoin size={30} />
         </div>
         <div className='copyright'>
           <div className='legal-links'>
