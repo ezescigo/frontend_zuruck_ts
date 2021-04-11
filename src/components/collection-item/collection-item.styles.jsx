@@ -29,6 +29,10 @@ export const CollectionItemContainer = styled.div`
 
   .fav-icon {
     display: none;
+    
+    @media (max-width: 990px) {
+      display: flex;
+    }
   }
   .image {
       background-image: ${({ imageUrl }) => `${imageUrl}`};
@@ -54,6 +58,10 @@ export const AddButton = styled(CustomButton)`
   position: absolute;
   top: 235px;
   display: none;
+
+  @media (max-width: 990px) {
+    display: flex;
+  }
 `;
 
 export const CollectionFooterContainer = styled.div`
