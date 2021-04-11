@@ -50,7 +50,7 @@
 .embla__slide__img {
   position: relative;
   display: block;
-  top: 50%;
+  top: 0;
   left: 50%;
   object-fit: cover;
   // min-height: 100%;
@@ -101,7 +101,7 @@
 
 .embla__dots {
   z-index: 1;
-  position: fixed;
+  position: absolute;
   width: 100%;
   bottom: 20px;
   margin: 0 auto;
