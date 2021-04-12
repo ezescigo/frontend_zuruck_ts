@@ -1,5 +1,8 @@
 import React, { useState, useLayoutEffect, useRef } from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { selectMobileView } from '../../redux/app/app.selectors';
+
 import { toast } from 'react-toastify';
 
 import { addItem, openCartDropdown } from '../../redux/cart/cart.actions';
@@ -10,11 +13,11 @@ import Undo from '../undo-toast/undo-toast.component';
 
 import { CollectionItemContainer, CollectionFooterContainer, BackgroundImage, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
 
-const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist, openCartDropdown }) => {
+const CollectionItem = ({ mobileView, item, fav, addItem, toggleFav, updateWishlist, openCartDropdown }) => {
   const { name, price, imageUrl } = item;
   const [isFav, setFav] = useState();
   const [isDisabled, setDisabled] = useState();
-  const [isHovered, setIsHovered] = useState(false);
+  const [isHovered, setIsHovered] = useState(mobileView);
   const firstUpdate = useRef(true);
   
   useLayoutEffect(() => {
@@ -30,7 +33,9 @@ const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist, openCar
   };
 
   const handleOnHover = hover => {
-    setIsHovered(hover);
+    if (!mobileView) {
+      setIsHovered(hover);
+    }
   }
 
   const handleOnClickFav = () => {
@@ -69,6 +74,10 @@ const CollectionItem = ({ item, fav, addItem, toggleFav, updateWishlist, openCar
     <AddButton inverted onClick={() => handleOnClickAdd(item)}>Add to cart</AddButton>
   </CollectionItemContainer>
 )};
+
+const mapStateToProps = createStructuredSelector({
+  mobileView: selectMobileView
+});
 
 const mapDispatchToProps = dispatch => ({
   addItem: item => dispatch(addItem(item)),

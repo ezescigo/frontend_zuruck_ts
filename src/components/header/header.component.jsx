@@ -17,7 +17,6 @@ const Header = ( { currentUser, hidden } ) => {
   const isMobile = useMediaQuery({
     query: '(max-width: 830px)'
   });
-  console.log('ismobile', isMobile)
   dispatch(showMobileView(isMobile));
   // const [isMobile, setIsMobile] = useState(false);
 

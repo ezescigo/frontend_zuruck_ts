@@ -18,7 +18,6 @@ import './checkout.styles.scss';
 
 const CheckOut = ({ history, active, isDropdown, itemCount, cartItems, wishlist, total, goToCheckOut, closeCartDropdown }) => {
   const [isActive, setIsActive] = useState(active);
-  console.log(isActive);
 
   const closeCheckOut = () => {
     if (isDropdown) {

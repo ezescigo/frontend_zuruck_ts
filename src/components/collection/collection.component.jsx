@@ -13,7 +13,6 @@ import CollectionItem from '../collection-item/collection-item.component';
 import './collection.styles.scss';
 
 const CollectionPage = ({ collection, wishlist, match }) => {
-  console.log('rendering collection');
   const dispatch = useDispatch();
   
 
@@ -38,9 +37,6 @@ const CollectionPage = ({ collection, wishlist, match }) => {
     // max = 1000000,
     // rating = 0,
   } = useParams();
-
-  console.log(category);
-  console.log(subcategory);
 
   useEffect(() => {
     if (typeof category !== 'undefined') {

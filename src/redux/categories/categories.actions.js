@@ -30,7 +30,6 @@ export const fetchCategoriesStartAsync = () => {
     try {
       axios.get('https://zuruck-backend.herokuapp.com/api/category').then(response => {
         const data = response.data;
-        console.log(data);
         dispatch(fetchCategoriesSuccess(data));
       });
     } catch (error) {

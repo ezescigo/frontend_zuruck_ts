@@ -8,7 +8,6 @@ import { selectMobileView } from '../../redux/app/app.selectors';
 import './checkout-page.styles.scss';
 
 const CheckOutPage = ({ location, mobileView }) => {
-  console.log(mobileView);
   return (
   <div className='checkout-page'>
     {mobileView

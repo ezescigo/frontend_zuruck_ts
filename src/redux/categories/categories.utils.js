@@ -13,6 +13,5 @@ export const ListToTree = (arr) => {
       res.push(node);
     };
   };
-  console.log(res);
   return res;
 };

@@ -12,8 +12,6 @@ import { selectCategoriesList } from '../../redux/categories/categories.selector
 
 const SlideSearchBox = ({ isLoading, headerWidth }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
-  const asd = parseInt(headerWidth);
-  console.log(asd);
   
   const toggleDrawer = (toggle) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -41,7 +39,7 @@ const SlideSearchBox = ({ isLoading, headerWidth }) => {
 
   const searchBoxAnimated = useSpring({
     config: { ...config.gentle },
-    transform: !drawerOpen ? "translateX(0px)" : `translateX(${asd}px)`,
+    transform: !drawerOpen ? "translateX(0px)" : `translateX(${parseInt(headerWidth)}px)`,
     zIndex: !drawerOpen ? 40 : 40,
   });
 

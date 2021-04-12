@@ -55,9 +55,6 @@ export const fetchCollectionsStartAsync = ({
     const collections = getState().collections.collections;
     const cat = subcategory || category || '';
 
-    console.log(category, subcategory);
-    console.log(getState().collections);
-
     let apiUrl = `https://zuruck-backend.herokuapp.com/api/products/${category}/${subcategory}`;
 
     // Only fetch if Category is not already in Collections *1 fetch per session*, can improve it with a timeout or bouncing logic

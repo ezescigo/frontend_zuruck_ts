@@ -11,8 +11,6 @@ import { toggleMenuSideDrawer } from '../../redux/app/app.actions';
 
 
 const HeaderSideBar = ({ isLoading, toggleMenuSideDrawer, isDrawerOpen}) => {
-  console.log('render header sidebar');
-  
   const [drawerOpen, setDrawerOpen] = useState(false);
   
   const toggleDrawer = (toggle) => (event) => {
@@ -22,7 +20,6 @@ const HeaderSideBar = ({ isLoading, toggleMenuSideDrawer, isDrawerOpen}) => {
     event.stopPropagation();
     setDrawerOpen(toggle);
   };
-  console.log(drawerOpen);
   const slide = useTransition(drawerOpen, null, {
     from: { opacity: 0  },
     enter: { opacity: 1  },
