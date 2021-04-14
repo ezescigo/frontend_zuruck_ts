@@ -11,11 +11,13 @@ import HeaderDesktop from '../header-desktop/header-desktop.component';
 import HeaderMobile from '../header-mobile/header-mobile.component';
 import { useMediaQuery } from 'react-responsive';
 
+import './header.styles.scss';
+
 const Header = ( { currentUser, hidden } ) => {
   // const {isXs, isSm, isMd, isLg, active} = useBreakpoints();
   const dispatch = useDispatch();
   const isMobile = useMediaQuery({
-    query: '(max-width: 830px)'
+    query: '(max-width: 960px)'
   });
   dispatch(showMobileView(isMobile));
   // const [isMobile, setIsMobile] = useState(false);
@@ -95,10 +97,10 @@ const Header = ( { currentUser, hidden } ) => {
 
   return (
     <nav>
-      {isMobile
-      ? <HeaderMobile sections={sections} isxsdevice={isXs} isMobile={true} />
-      : <HeaderDesktop sections={sections} isxsdevice={false} isMobile={false} />
-      }
+        {isMobile
+          ? <HeaderMobile sections={sections} isxsdevice={isXs} isMobile={true} />
+          : <HeaderDesktop sections={sections} isxsdevice={false} isMobile={false} />
+        }
     </nav>
   );
 };

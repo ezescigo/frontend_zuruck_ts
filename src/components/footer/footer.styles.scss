@@ -94,6 +94,9 @@
       padding: 0 10px;
 
       @media (max-width: 992px) {
+        width: 100%;
+        max-width: 600px;
+        margin: 0 auto;
         justify-content: space-around;
       }
       
@@ -123,10 +126,22 @@
       }
 
       .legal-links {
+        margin: 5px 0;
         width: 100%;
         display: flex;
         justify-content: space-evenly;
         // order: 1;
+
+        @media (max-width: 992px) {
+          width: 100%;
+          max-width: 600px;
+          margin: 5px auto;
+          justify-content: center;
+        }
+
+        a {
+          margin: 0 5px;
+        }
       }
     }
   }

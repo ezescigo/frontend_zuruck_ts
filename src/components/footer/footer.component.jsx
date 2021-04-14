@@ -59,7 +59,9 @@ const Footer = () => {
         <div className='copyright'>
           <div className='legal-links'>
             <a href='#' rel='nofollow'>Terms & Conditions</a>
+            <strong>•</strong>
             <a href='#' rel='nofollow'>Privacy Policy</a>
+            <strong>•</strong>
             <a href='#'>Sitemap</a>
           </div>
           <span>© Copyright &nbsp;

@@ -11,7 +11,7 @@ export const HeaderContainer = styled.div`
   justify-content: space-between;
   align-content: center;
   margin-bottom: 20px;
-  padding: 15px 10px 10px 10px;
+  padding: 15px 10px 0px 10px;
   background-color: transparent;
   z-index: 30;
   transition: all 0.3s ease-in-out;
@@ -23,7 +23,7 @@ export const HeaderContainer = styled.div`
     -webkit-box-shadow: inset  0 -10px 20px -10px grey; */
 
     ${({ styled }) => !styled && 
-      css`background-color: rgba(255, 255, 255, 0.95)`
+      css`background-color: rgba(41, 41, 41, 0.95)`
     }
   }
 
@@ -69,7 +69,7 @@ export const LogoText = styled.span`
 
   ${HeaderContainer}:hover & {
     ${({ styled }) => !styled && 
-      css`color: #5a5555 ;
+      css`color: white ;
         text-shadow: 0.5px 0.5px 0.5px #ced1d0, 1px 1px 1px grey;
     `}
   }
@@ -135,7 +135,7 @@ export const OptionLink = styled(Link)`
   ${HeaderContainer}:hover & {
     ${({ styled }) => !styled && 
       css`
-      color: #312f2f ;
+      color: white ;
       text-shadow: 0.5px 0.5px 0.5px #ced1d0;
     `}
     
@@ -159,6 +159,7 @@ export const NavbarContainer = styled.div`
 export const NavbarItem = styled.div`
   flex: 1;
   margin: 0 25px;
+  padding-bottom: 30px;
   text-transform: uppercase;
   text-align: center;
   cursor: pointer;
@@ -196,7 +197,7 @@ export const NavbarItem = styled.div`
   ${HeaderContainer}:hover & {
     ${({ styled }) => !styled && 
       css`
-      color: #383636 ;
+      color: white ;
       text-shadow: 0.5px 0.5px 0.5px #464747; 
     `}
     
@@ -235,7 +236,7 @@ export const NavbarMenuItem = styled.div`
   ${HeaderContainer}:hover & {
     ${({ styled }) => !styled && 
       css`
-      color: #383636 ;
+      color: #d6d4d4 ;
       text-shadow: 0.5px 0.5px 0.5px #464747; 
     `}
   }

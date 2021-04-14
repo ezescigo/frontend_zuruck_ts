@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { createStructuredSelector } from 'reselect';
@@ -10,7 +10,7 @@ import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selector
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 
 import { auth } from '../../firebase/firebase.utils';
-import { useOnClickOutside } from '../../hooks';
+import { useOnClickOutside, debounce } from '../../hooks';
 
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
@@ -43,8 +43,37 @@ const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isL
     }
   });
 
+  const [state, setState] = useState({
+    prevScrollPos: 0,
+    visible: true
+  });
+
+  const { prevScrollPos, visible } = state;
+
+  const handleScroll = debounce(() => {
+    
+    const currentScrollPos = window.pageYOffset;
+    const visible = (prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 30) || window.scrollY < 100;
+  
+    setState({
+      prevScrollPos: currentScrollPos,
+      visible: visible
+    });
+  }, 50);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+
+    // cleaning up listener
+    return () => window.removeEventListener('scroll', handleScroll);
+  },[prevScrollPos, visible]);
+
+  const headerContainerStyles = {
+    transition: 'top 0.6s ease-in' 
+  }
+
   return(
-    <HeaderContainer>
+    <HeaderContainer style={{ ...headerContainerStyles, top: visible ? '0' : '-200px' }}>
       { isMobile && <HeaderSideBar sections={sections} isLoading={isLoading} />}
       
       <LogoContainer to='/' isxsdevice={isxsdevice}>

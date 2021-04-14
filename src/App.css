@@ -76,7 +76,7 @@ p {
 /* https://fkhadra.github.io/react-toastify/how-to-style/ */
 
 .toast-container {
-  background-color: rgb(58, 57, 57);
+  background-color: transparent;
 }
 
 .Toastify__toast--success {

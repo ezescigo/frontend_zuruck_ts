@@ -148,6 +148,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
             <NavbarItem 
               key={category._id}
               onMouseEnter={() => {setIsActive(category.name)}}
+              onMouseLeave={() => {setIsActive('')}}
               onClick={() => history.push(`/shop/${category.slug}`)}
               styled={location.pathname === '/' ? false : true}
             >
