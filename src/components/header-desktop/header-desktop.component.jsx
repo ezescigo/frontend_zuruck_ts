@@ -19,6 +19,7 @@ import { useSpring, useTransition, animated, config } from 'react-spring';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
 import { AiOutlineHeart, AiFillHeart } from 'react-icons/ai';
 import { IoPerson, IoPersonOutline } from 'react-icons/io5';
+import transitions from '@material-ui/core/styles/transitions';
 
 
 const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, currentUser, history, location, toggleCartHidden, wishlistItemCount }) => {
@@ -51,7 +52,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
 
   const transitionsDropdown = useTransition(!hidden, null, {
     from: { transform: "translateY(-100px)", opacity: 0 },
-    enter: { transform: "translateY(-30px)", opacity: 1, zIndex: 30, },
+    enter: { transform: "translateY(-30px)", opacity: 1, zIndex: 40 },
     leave: { transform: "translateY(-100px)", opacity: 0 }
   })
 
@@ -63,13 +64,21 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
 
   const fadeStylesMenu = useSpring({
     config: { ...config.stiff },
-    from: { opacity: 0 },
+    from: { opacity: 0, height: 0, zIndex: 0 },
     to: {
       opacity: !subMenuHidden ? 1 : 0,
       // display: subMenuHidden ? 'none' : 'flex',
       height: subMenuHidden ? 0 : 200,
+      zIndex: 0,
+      display: subMenuHidden ? 'none' : ''
     }
   }, [subMenuHidden]);
+
+  const transitionSubNavbar = useTransition(!subMenuHidden, null, {
+    from : { height: 0, zIndex: 0, opacity: 0 },
+    enter: { height: 200, zIndex: 10, opacity: 1 },
+    leave: { height: 0, zIndex: 0, opacity: 0 }
+  });
 
   const fadeStylesItem = useSpring({
     config: { ...config.gentle },
@@ -157,27 +166,34 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
           )}
         </NavbarContainer>
       </OptionsContainer>
-      <animated.div style={fadeStylesMenu}>
-      <OptionsContainer 
-        onMouseEnter={() => setIsActive(isActive || prevActive)}
-      >
-        <NavbarMenuContainer>
-          {categories.map(category => 
-            category.name === isActive &&
-              category.children.map(subcategory => 
-                <animated.div style={fadeStylesItem}>
-                  <NavbarMenuItem
-                  key={subcategory._id}
-                  type='item'
-                  onClick={() => history.push(`/shop/${category.slug}/${subcategory.slug}`)}>
-                    { subcategory.name }
-                  </NavbarMenuItem>
-                </animated.div>)
-            )
-          }
-        </NavbarMenuContainer>
-      </OptionsContainer>
-      </animated.div>
+      { transitionSubNavbar.map(
+        ({ item, key, props }) => (
+          item && 
+          <animated.div key={key} style={props}>
+            <OptionsContainer 
+              onMouseEnter={() => setIsActive(isActive || prevActive)}
+            >
+              <NavbarMenuContainer>
+                {categories.map(category => 
+                  category.name === isActive &&
+                    category.children.map(subcategory => 
+                      // <animated.div style={fadeStylesItem}>
+                        <NavbarMenuItem
+                        key={subcategory._id}
+                        type='item'
+                        onClick={() => history.push(`/shop/${category.slug}/${subcategory.slug}`)}>
+                          { subcategory.name }
+                        </NavbarMenuItem>
+                      // </animated.div>
+                      )
+                  )
+                }
+              </NavbarMenuContainer>
+            </OptionsContainer>
+          </animated.div>
+        )
+      )}
+      
     </HeaderContainer>
   )
 };

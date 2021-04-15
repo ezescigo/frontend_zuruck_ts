@@ -222,6 +222,7 @@ export const NavbarMenuContainer = styled.div`
   justify-content: center;
   padding: 20px 10px;
   transition: all 0.3s ease-in-out;
+  z-index: 10;
 `;
 
 export const NavbarMenuItem = styled.div`
