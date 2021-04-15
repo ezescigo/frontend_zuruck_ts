@@ -24,10 +24,13 @@ import transitions from '@material-ui/core/styles/transitions';
 
 const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, currentUser, history, location, toggleCartHidden, wishlistItemCount }) => {
 
-  const [isActive, setIsActive] = useState('');
+  const [isActive, setIsActive] = useState({
+    category: ''
+  });
   const prevActive = usePrevious(isActive);
   const [subMenuHidden, setHideSubMenu] = useState(true);
   const [ref, bounds] = useMeasure();
+  const [submenuItems, setSubmenuItems] = useState([]);
 
   const { url } = useRouteMatch();
 
@@ -77,28 +80,43 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
   const transitionSubNavbar = useTransition(!subMenuHidden, null, {
     from : { height: 0, zIndex: 0, opacity: 0 },
     enter: { height: 200, zIndex: 10, opacity: 1 },
-    leave: { height: 0, zIndex: 0, opacity: 0 }
+    leave: { height: 0, zIndex: 0, opacity: 0 },
+    config: { ...config.slow }
+  });
+
+  const transitionSubnavbarItem = useTransition(submenuItems, submenuItem => submenuItem._id, {
+    from: { opacity: 0 },
+    enter: { opacity: 1 },
+    leave: { opacity: 0, display: 'none' },
+    delay: 200,
   });
 
   const fadeStylesItem = useSpring({
-    config: { ...config.gentle },
+    config: { ...config.molasses },
     from: { opacity: 0 },
     to: {
       opacity: isActive ? 1 : 0,
     }
   }, [isActive]);
 
+  const handleShowSubcategories = () => {
+    setHideSubMenu(false);
+    categories.map(category => 
+      category.slug === isActive.category &&
+      setSubmenuItems(category.children)
+    )
+  }
+
   useEffect(() => {
-    isActive === ''
+    isActive.category === ''
     ? setHideSubMenu(true)
-    : setHideSubMenu(false)
+    : handleShowSubcategories()
   }, [isActive]);
 
   return(
     <HeaderContainer 
-      
       styled={location.pathname === '/' ? false : true}
-      onMouseLeave={() => setIsActive('')}>
+      onMouseLeave={() => setIsActive({ category: '' })}>
       <OptionsContainerTop>
         <LogoContainer to='/' styled={location.pathname === '/' ? false : true}>
           <LogoText >ZURÜCK</LogoText>
@@ -144,20 +162,16 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
         item && <animated.div key={key} style={props}><CartDropdown hidden={hidden} /></animated.div>
       )}
       
-      
-      {/* <animated.div style={fadeStylesDropdown}>
-        <CartDropdown hidden={hidden} />
-      </animated.div> */}
       <OptionsContainer 
-        onMouseEnter={() => setIsActive(isActive || prevActive)}
-        onMouseLeave={() => setIsActive('')}
+        onMouseEnter={() => setIsActive({ category: isActive || prevActive })}
+        onMouseLeave={() => setIsActive({ category: '' })}
       >
         <NavbarContainer>
           { categories.map(category =>
             <NavbarItem 
               key={category._id}
-              onMouseEnter={() => {setIsActive(category.name)}}
-              onMouseLeave={() => {setIsActive('')}}
+              onMouseEnter={() => {setIsActive({ category: category.slug })}}
+              onMouseLeave={() => {setIsActive({ category: '' })}}
               onClick={() => history.push(`/shop/${category.slug}`)}
               styled={location.pathname === '/' ? false : true}
             >
@@ -171,23 +185,24 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
           item && 
           <animated.div key={key} style={props}>
             <OptionsContainer 
-              onMouseEnter={() => setIsActive(isActive || prevActive)}
+              onMouseEnter={() => setIsActive({ category: isActive || prevActive })}
             >
               <NavbarMenuContainer>
-                {categories.map(category => 
-                  category.name === isActive &&
-                    category.children.map(subcategory => 
-                      // <animated.div style={fadeStylesItem}>
-                        <NavbarMenuItem
-                        key={subcategory._id}
-                        type='item'
-                        onClick={() => history.push(`/shop/${category.slug}/${subcategory.slug}`)}>
-                          { subcategory.name }
-                        </NavbarMenuItem>
-                      // </animated.div>
-                      )
-                  )
-                }
+                
+                      { transitionSubnavbarItem.map(
+                        ({ item, key, props }) => (
+                          item &&
+                            <animated.div key={key} style={props}>
+                              <NavbarMenuItem
+                              key={item._id}
+                              type='item'
+                              onClick={() => history.push(`/shop/${isActive.category}/${item.slug}`)}>
+                                { item.name }
+                              </NavbarMenuItem>
+                            </animated.div>
+                          )
+                        )
+                      }
               </NavbarMenuContainer>
             </OptionsContainer>
           </animated.div>
