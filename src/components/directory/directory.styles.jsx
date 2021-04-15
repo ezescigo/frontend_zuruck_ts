@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export const DirectoryContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100vh;
   margin-top: 75px;
   @media (min-width: 600px) {
@@ -21,22 +21,25 @@ export const ShopNowButton = styled(Link)`
   position: absolute;
   display:inline-block;
   margin: auto;
-  top:0;
+  top: 70%;
   right:0;
   bottom:0;
   left:0;
-  height: 80px;
-  width: 180px;
+  height: 60px;
+  width: 220px;
   text-align: center;
-  background-color: transparent;
-  color: #e9d7d7;
+  background-color: rgba(253, 252, 252, 0.877);
+  color: #3b3a3a;
   font-size: 22px;
   font-family: 'Roboto', sans-serif;
-  font-weight: 600;
-  border-radius: 8px;
-  border: 1px solid white;
-  padding: 25px 10px;
-  top: 70%;
+  font-weight: 300;
+  text-transform: uppercase;  
+  border-radius: 30px;
+  /* border: 1px solid white; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
   
   z-index: 5;
   transition: all 0.3s ease-in-out;

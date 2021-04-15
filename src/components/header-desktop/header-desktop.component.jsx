@@ -37,7 +37,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
     });
 
   const fadeStylesDropdown = useSpring({
-    config: { ...config.stiff },
+    config: { ...config.slow },
     // reset: true,
     // reverse: true,
     from: { display: 'none', zIndex: -50, opacity: 0, transform: "translateY(-100px)" },
@@ -62,10 +62,12 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
     });
 
   const fadeStylesMenu = useSpring({
-    config: { ...config.gentle },
+    config: { ...config.stiff },
     from: { opacity: 0 },
     to: {
       opacity: !subMenuHidden ? 1 : 0,
+      // display: subMenuHidden ? 'none' : 'flex',
+      height: subMenuHidden ? 0 : 200,
     }
   }, [subMenuHidden]);
 
@@ -81,8 +83,6 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
     isActive === ''
     ? setHideSubMenu(true)
     : setHideSubMenu(false)
-
-
   }, [isActive]);
 
   return(
@@ -158,9 +158,10 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
         </NavbarContainer>
       </OptionsContainer>
       <animated.div style={fadeStylesMenu}>
-        <OptionsContainer 
-          onMouseEnter={() => setIsActive(isActive || prevActive)}
-        >
+      <OptionsContainer 
+        onMouseEnter={() => setIsActive(isActive || prevActive)}
+      >
+        <NavbarMenuContainer>
           {categories.map(category => 
             category.name === isActive &&
               category.children.map(subcategory => 
@@ -174,7 +175,8 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
                 </animated.div>)
             )
           }
-        </OptionsContainer>
+        </NavbarMenuContainer>
+      </OptionsContainer>
       </animated.div>
     </HeaderContainer>
   )

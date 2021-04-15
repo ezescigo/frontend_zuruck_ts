@@ -21,7 +21,7 @@ const Directory = ({ sections }) => {
   return (
     <DirectoryContainer>
       <EmblaCarousel slides={slides}  sections={sections} />
-      <ShopNowButton to='/shop'>SHOP NOW</ShopNowButton>
+      <ShopNowButton to='/shop'>shop now</ShopNowButton>
     </DirectoryContainer>
 )};
 

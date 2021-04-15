@@ -69,7 +69,7 @@ const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isL
   },[prevScrollPos, visible]);
 
   const headerContainerStyles = {
-    transition: 'top 0.6s ease-in' 
+    transition: 'top 0.6s ease-out' 
   }
 
   return(

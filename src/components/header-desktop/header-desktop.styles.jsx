@@ -104,11 +104,13 @@ export const OptionsPanel = styled.div`
 
 export const OptionsContainer = styled.div`
   width: 100%;
-  height: 50%;
+  min-height: 50px;
+  height: auto;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
+  transition: height 0.2s ease;
 `;
 
 export const OptionLink = styled(Link)`
@@ -144,13 +146,14 @@ export const OptionLink = styled(Link)`
 
 export const NavbarContainer = styled.div`
   width: 75%;
+  height: 100%;
   min-width: 480px;
   max-width: 1200px;
   margin: 0 auto;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
-  padding-top: 10px;
+  justify-content: center;
+  /* padding-top: 10px; */
   font-size: 22px;
   font-weight: bold;
   color: white;
@@ -158,15 +161,14 @@ export const NavbarContainer = styled.div`
 
 export const NavbarItem = styled.div`
   flex: 1;
-  margin: 0 25px;
-  padding-bottom: 30px;
+  margin: 0 auto;
+  padding: auto;
+  height: 50px;
   text-transform: uppercase;
   text-align: center;
   cursor: pointer;
   letter-spacing: 0.1em;
   font-family: 'Piazzola';
-  -webkit-text-stroke: 0.45px;
-  // or
   -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
   // or
   text-shadow: #646161 0px 0.5px 0.5px;
@@ -211,13 +213,15 @@ export const NavbarItem = styled.div`
 `;
 
 export const NavbarMenuContainer = styled.div`
-  height: auto;
-  width: 50%;
+  height: 200px;
+  width: 100%;
+  margin: 0 auto;
   display: flex;
   flex-direction: row;
+  align-items: center;
+  justify-content: center;
   padding: 20px 10px;
   transition: all 0.3s ease-in-out;
-
 `;
 
 export const NavbarMenuItem = styled.div`
