@@ -10,12 +10,14 @@ import "./slider-carousel.styles.scss";
 
 import { selectMobileView } from '../../redux/app/app.selectors.js';
 
-import media1 from '../../assets/jd-bg.jpg';
-import media2 from '../../assets/whisky-bg.jpg';
-import media3 from '../../assets/wine-bg.jpg';
-import media1Mobile from '../../assets/jd-bg-small.jpg';
-import media2Mobile from '../../assets/whisky-bg-small.jpg';
-import media3Mobile from '../../assets/wine-bg-small.jpg';
+import media1 from '../../assets/slide-1-large.jpg';
+import media2 from '../../assets/slide-2-large.jpg';
+import media3 from '../../assets/slide-3-large.jpg';
+import media4 from '../../assets/slide-4-large.jpg';
+import media1Mobile from '../../assets/slide-1-small.jpg';
+import media2Mobile from '../../assets/slide-2-small.jpg';
+import media3Mobile from '../../assets/slide-3-small.jpg';
+import media4Mobile from '../../assets/slide-4-small.jpg';
 
 const AUTOPLAY_INTERVAL = 6000;
 
@@ -29,9 +31,9 @@ const EmblaCarousel = ({ slides, isMobile }) => {
   let media = [];
 
   if (isMobile) {
-    media = [media1Mobile, media2Mobile, media3Mobile]
+    media = [media1Mobile, media2Mobile, media3Mobile, media4Mobile]
   } else {
-    media = [media1, media2, media3]
+    media = [media1, media2, media3, media4]
   }
   
   // sections.map(section => media.push(section.imageUrl));
@@ -70,6 +72,7 @@ const EmblaCarousel = ({ slides, isMobile }) => {
   const onSelect = useCallback(() => {
     if (!embla) return;
     setSelectedIndex(embla.selectedScrollSnap());
+    stop();
     // setPrevBtnEnabled(embla.canScrollPrev());
     // setNextBtnEnabled(embla.canScrollNext());
   }, [embla, setSelectedIndex]);

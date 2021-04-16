@@ -8,7 +8,7 @@ import { DirectoryContainer, ShopNowButton } from './directory.styles';
 import { fetchCollectionsStartAsync } from '../../redux/collections/collections.actions';
 import { selectCategoriesList } from '../../redux/categories/categories.selectors';
 
-const SLIDE_COUNT = 3;
+const SLIDE_COUNT = 4;
 const slides = Array.from(Array(SLIDE_COUNT).keys());
 
 const Directory = ({ sections }) => {
