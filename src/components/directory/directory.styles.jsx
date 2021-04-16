@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom';
 export const DirectoryContainer = styled.div`
   width: 100%;
   height: 100vh;
-  margin-top: 75px;
-  @media (min-width: 600px) {
-    margin-top: 0px;
-  }
+  margin-top: 0px;
 `
 export const BackgroundImage = styled.div`
   width: 100%;

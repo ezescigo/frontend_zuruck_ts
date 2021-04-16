@@ -8,6 +8,7 @@ import { useEmblaCarousel } from "embla-carousel/react";
 
 import "./slider-carousel.styles.scss";
 
+import useBreakpoints from '../../hooks.js';
 import { selectMobileView } from '../../redux/app/app.selectors.js';
 
 import media1 from '../../assets/slide-1-large.jpg';
@@ -27,10 +28,11 @@ const EmblaCarousel = ({ slides, isMobile }) => {
   // const [nextBtnEnabled, setNextBtnEnabled] = useState(false);
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
+  const breakpoints = useBreakpoints();
 
   let media = [];
-
-  if (isMobile) {
+  console.log(breakpoints);
+  if (breakpoints.active === "xs") {
     media = [media1Mobile, media2Mobile, media3Mobile, media4Mobile]
   } else {
     media = [media1, media2, media3, media4]
