@@ -74,7 +74,6 @@ const EmblaCarousel = ({ slides, isMobile }) => {
   const onSelect = useCallback(() => {
     if (!embla) return;
     setSelectedIndex(embla.selectedScrollSnap());
-    stop();
     // setPrevBtnEnabled(embla.canScrollPrev());
     // setNextBtnEnabled(embla.canScrollNext());
   }, [embla, setSelectedIndex]);
