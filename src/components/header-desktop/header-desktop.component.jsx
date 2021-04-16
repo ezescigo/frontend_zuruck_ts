@@ -59,45 +59,19 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
     leave: { transform: "translateY(-100px)", opacity: 0 }
   })
 
-  const slideEffect = useTransition(!subMenuHidden, null, {
-    from: { opacity: 0 },
-    enter: { opacity: 1 },
-    leave: { opacity: 0 },
-    });
-
-  const fadeStylesMenu = useSpring({
-    config: { ...config.stiff },
-    from: { opacity: 0, height: 0, zIndex: 0 },
-    to: {
-      opacity: !subMenuHidden ? 1 : 0,
-      // display: subMenuHidden ? 'none' : 'flex',
-      height: subMenuHidden ? 0 : 200,
-      zIndex: 0,
-      display: subMenuHidden ? 'none' : ''
-    }
-  }, [subMenuHidden]);
-
   const transitionSubNavbar = useTransition(!subMenuHidden, null, {
     from : { height: 0, zIndex: 0, opacity: 0 },
     enter: { height: 200, zIndex: 10, opacity: 1 },
     leave: { height: 0, zIndex: 0, opacity: 0 },
-    config: { ...config.slow }
+    config: !subMenuHidden ? { ...config.slow } : { duration: 400 }
   });
 
   const transitionSubnavbarItem = useTransition(submenuItems, submenuItem => submenuItem._id, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
-    leave: { opacity: 0, display: 'none' },
-    delay: 200,
+    leave: { opacity: 0, transform: 'translateY(-300px)', display: 'none' },
+    config: submenuItems ? { ...config.stiff } : { duration: 100 }
   });
-
-  const fadeStylesItem = useSpring({
-    config: { ...config.molasses },
-    from: { opacity: 0 },
-    to: {
-      opacity: isActive ? 1 : 0,
-    }
-  }, [isActive]);
 
   const handleShowSubcategories = () => {
     setHideSubMenu(false);
@@ -108,9 +82,12 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
   }
 
   useEffect(() => {
-    isActive.category === ''
-    ? setHideSubMenu(true)
-    : handleShowSubcategories()
+    if (isActive.category === '') {
+      setHideSubMenu(true);
+      setSubmenuItems([]);
+    } else {
+      handleShowSubcategories()
+    }
   }, [isActive]);
 
   return(
@@ -185,7 +162,8 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
           item && 
           <animated.div key={key} style={props}>
             <OptionsContainer 
-              onMouseEnter={() => setIsActive({ category: isActive || prevActive })}
+              onMouseEnter={() => setIsActive({ category: isActive.category })}
+              onMouseLeave={() => setIsActive({ category: '' })}
             >
               <NavbarMenuContainer>
                 
