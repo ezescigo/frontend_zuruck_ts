@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 
 export const useOnClickOutside = (ref, handler) => {
@@ -42,10 +42,10 @@ export function debounce(func, wait, immediate) {
  */
 export default function useBreakpoints() {
   const breakpoints = {
-    isXs: useMediaQuery("(max-width: 640px)"),
-    isSm: useMediaQuery("(min-width: 641px) and (max-width: 768px)"),
-    isMd: useMediaQuery("(min-width: 769px) and (max-width: 1024px)"),
-    isLg: useMediaQuery("(min-width: 1025px)"),
+    isXs: useMediaQuery({ query: "(max-width: 640px)" }),
+    isSm: useMediaQuery({ query: "(min-width: 641px) and (max-width: 768px)" }),
+    isMd: useMediaQuery({ query: "(min-width: 769px) and (max-width: 1024px)" }),
+    isLg: useMediaQuery({ query: "(min-width: 1025px)" }),
     active: "xs"
   };
   if (breakpoints.isXs) breakpoints.active = "xs";
@@ -61,4 +61,31 @@ export function usePrevious(value) {
     ref.current = value;
   });
   return ref.current;
+}
+
+export function useHover() {
+  const [value, setValue] = useState(false);
+
+  const ref = useRef(null);
+
+  const handleMouseOver = () => setValue(true);
+  const handleMouseOut = () => setValue(false);
+
+  useEffect(
+    () => {
+      const node = ref.current;
+      if (node) {
+        node.addEventListener("mouseover", handleMouseOver);
+        node.addEventListener("mouseout", handleMouseOut);
+
+        return () => {
+          node.removeEventListener("mouseover", handleMouseOver);
+          node.removeEventListener("mouseout", handleMouseOut);
+        };
+      }
+    },
+    [ref.current] // Recall only if ref changes
+  );
+
+  return [ref, value];
 }
