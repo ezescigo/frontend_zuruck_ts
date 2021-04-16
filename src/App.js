@@ -82,10 +82,25 @@ class App extends React.Component {
           animation={'zoom'}
           customStyles={RodalStyles}>
           <p>
-            This is a project in progress.
+            This is a (daily) work-in-progress project!
               <br />
               You may (will) find bugs and unfinished features.
-            </p>
+              <br />
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              flexDirection: 'column',
+              marginTop: '5px',
+              fontWeight: '600',
+            }}>
+              <a href='https://escigolini.herokuapp.com/'>Personal Web</a>
+              <br />
+              <a href='https://github.com/EzeScigo'>GitHub</a>
+              <br />
+              <a href='https://www.linkedin.com/in/ezequiel-scigolini/'>LinkedIn</a>
+            </div>
+          </p>
           <p>
             Hope you like it :)
               <br />
