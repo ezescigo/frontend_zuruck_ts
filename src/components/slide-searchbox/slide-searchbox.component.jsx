@@ -56,7 +56,7 @@ const SlideSearchBox = ({ isLoading, headerWidth }) => {
         <SlideNavBar open={drawerOpen}>    
           {isLoading
             ? 'Loading...'
-            : <div>hola</div>
+            : <div>working on this feature</div>
           }
         </SlideNavBar>
       </animated.div>

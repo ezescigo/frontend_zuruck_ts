@@ -162,10 +162,11 @@ export const NavbarContainer = styled.div`
 export const NavbarItem = styled.div`
   flex: 1;
   margin: 0 auto;
-  padding: auto;
-  height: 50px;
+  height: 80px;
+  line-height: 80px;
   text-transform: uppercase;
   text-align: center;
+ 
   cursor: pointer;
   letter-spacing: 0.1em;
   font-family: 'Piazzola';
