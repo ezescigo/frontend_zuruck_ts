@@ -63,14 +63,14 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
     from : { height: 0, zIndex: 0, opacity: 0 },
     enter: { height: 200, zIndex: 10, opacity: 1 },
     leave: { height: 0, zIndex: 0, opacity: 0 },
-    config: !subMenuHidden ? { ...config.slow } : { duration: 400 }
+    config: !subMenuHidden ? { ...config.slow } : { ...config.slow, duration: 400 }
   });
 
   const transitionSubnavbarItem = useTransition(submenuItems, submenuItem => submenuItem._id, {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 0, transform: 'translateY(-300px)', display: 'none' },
-    config: submenuItems ? { ...config.stiff } : { duration: 100 }
+    config: submenuItems ? { ...config.stiff } : { ...config.stiff, duration: 100 }
   });
 
   const handleShowSubcategories = () => {
