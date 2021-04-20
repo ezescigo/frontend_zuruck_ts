@@ -48,12 +48,6 @@ export const LogoContainer = styled(Link)`
   -webkit-text-stroke: 0.45px rgba(0, 0, 0, 0.1);
   // or
   text-shadow: #fff 0px 1px 1px;
-
-  ${HeaderContainer}:hover & {
-    ${({ styled }) => !styled && 
-      css`text-shadow: #363434 0px 1px 1px;`
-    }
-  }
 `;
 
 export const LogoText = styled.span`
@@ -218,7 +212,7 @@ export const NavbarMenuContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 20px 10px;

@@ -95,7 +95,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
       styled={location.pathname === '/' ? false : true}
       onMouseLeave={() => setIsActive({ category: '' })}>
       <OptionsContainerTop>
-        <LogoContainer to='/' styled={location.pathname === '/' ? false : true}>
+        <LogoContainer to='/'>
           <LogoText >ZURÜCK</LogoText>
         </LogoContainer>
         <SideSearchBox ref={ref} headerWidth={bounds.left} />
@@ -166,21 +166,20 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
               onMouseLeave={() => setIsActive({ category: '' })}
             >
               <NavbarMenuContainer>
-                
-                      { transitionSubnavbarItem.map(
-                        ({ item, key, props }) => (
-                          item &&
-                            <animated.div key={key} style={props}>
-                              <NavbarMenuItem
-                              key={item._id}
-                              type='item'
-                              onClick={() => history.push(`/shop/${isActive.category}/${item.slug}`)}>
-                                { item.name }
-                              </NavbarMenuItem>
-                            </animated.div>
-                          )
-                        )
-                      }
+                { transitionSubnavbarItem.map(
+                  ({ item, key, props }) => (
+                    item &&
+                      <animated.div key={key} style={props}>
+                        <NavbarMenuItem
+                        key={item._id}
+                        type='item'
+                        onClick={() => history.push(`/shop/${isActive.category}/${item.slug}`)}>
+                          { item.name }
+                        </NavbarMenuItem>
+                      </animated.div>
+                    )
+                  )
+                }
               </NavbarMenuContainer>
             </OptionsContainer>
           </animated.div>

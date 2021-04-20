@@ -25,7 +25,17 @@ export const CollectionItemContainer = styled.div`
   position: relative;
   border-radius: 2px;
   transition: all 0.5s ease-in-out;
+  margin: 10px 5px;
 
+  @media (max-width: 750px) {
+    width: 165px;
+    height: 175px;
+  }
+
+  @media (max-width: 480px) {
+    width: 110px;
+    height: 118px;
+  }
 
   .fav-icon {
     display: none;
@@ -56,12 +66,31 @@ export const AddButton = styled(CustomButton)`
   width: 80%;
   opacity: 0.7;
   position: absolute;
-  top: 235px;
+  top: 70%;
   display: none;
 
   @media (max-width: 990px) {
     display: flex;
   }
+
+  @media (max-width: 750px) {
+    min-width: 50px;
+    height: 30px;
+    line-height: 30px;
+    padding: 0 5px 0 5px;
+    font-size: 10px;
+    margin: 2px 0;
+  }
+
+  @media (max-width: 480px) {
+    min-width: 50px;
+    height: 20px;
+    line-height: 20px;
+    padding: 0 5px 0 5px;
+    font-size: 8px;
+    margin: 0;
+  }
+
 `;
 
 export const CollectionFooterContainer = styled.div`
@@ -70,6 +99,14 @@ export const CollectionFooterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 18px;
+
+  @media (max-width: 750px) {
+    font-size: 12px;
+  }
+
+  @media (max-width: 480px) {
+    font-size: 8px;
+  }
 `;
 
 export const NameContainer = styled.span`

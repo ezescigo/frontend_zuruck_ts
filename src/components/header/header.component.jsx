@@ -5,7 +5,7 @@ import { createStructuredSelector } from 'reselect';
 
 import { selectCartHidden } from '../../redux/cart/cart.selectors';
 import { selectCurrentUser } from '../../redux/user/user.selectors';
-import { showMobileView } from '../../redux/app/app.actions';
+import { isXsDevice, showMobileView } from '../../redux/app/app.actions';
 
 import HeaderDesktop from '../header-desktop/header-desktop.component';
 import HeaderMobile from '../header-mobile/header-mobile.component';
@@ -16,10 +16,12 @@ import './header.styles.scss';
 const Header = ( { currentUser, hidden } ) => {
   // const {isXs, isSm, isMd, isLg, active} = useBreakpoints();
   const dispatch = useDispatch();
+  const isXs = useMediaQuery({
+    query: '(max-width: 480px)'
+  });
   const isMobile = useMediaQuery({
     query: '(max-width: 960px)'
   });
-  dispatch(showMobileView(isMobile));
   // const [isMobile, setIsMobile] = useState(false);
 
   const sections = [
@@ -91,9 +93,10 @@ const Header = ( { currentUser, hidden } ) => {
     } 
   ]
 
-  const isXs = useMediaQuery({
-    query: '(max-width: 404px)'
-  });
+  useEffect(() => {
+    dispatch(isXsDevice(isXs));
+    dispatch(showMobileView(isMobile));
+  }, [isXs, isMobile])
 
   return (
     <nav>

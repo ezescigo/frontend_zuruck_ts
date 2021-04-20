@@ -71,7 +71,7 @@ const CollectionItem = ({ mobileView, item, fav, addItem, toggleFav, updateWishl
       <PriceContainer>${price}</PriceContainer>
     </CollectionFooterContainer>
     <FavIcon show={isHovered} className='fav-icon' isFav={isFav} onClick={handleOnClickFav} disabled={isDisabled}/>
-    <AddButton inverted onClick={() => handleOnClickAdd(item)}>Add to cart</AddButton>
+    <AddButton mobile={mobileView} inverted onClick={() => handleOnClickAdd(item)}>Add to cart</AddButton>
   </CollectionItemContainer>
 )};
 

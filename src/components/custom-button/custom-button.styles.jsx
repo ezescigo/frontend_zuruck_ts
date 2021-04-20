@@ -36,6 +36,11 @@ const invertedButtonStyles = css`
 const getButtonSize = props => {
   if (props.large) {
     return css`width: 100%;`;
+  } else if (props.mobile) {
+    return css`
+      min-width: 50px;
+      height: 30px;
+    `;
   }
 }
 
