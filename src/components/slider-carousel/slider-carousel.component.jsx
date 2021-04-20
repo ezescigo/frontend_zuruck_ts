@@ -31,7 +31,6 @@ const EmblaCarousel = ({ slides, isMobile }) => {
   const breakpoints = useBreakpoints();
 
   let media = [];
-  console.log(breakpoints);
   if (breakpoints.active === "xs") {
     media = [media1Mobile, media2Mobile, media3Mobile, media4Mobile]
   } else {
@@ -39,7 +38,6 @@ const EmblaCarousel = ({ slides, isMobile }) => {
   }
   
   // sections.map(section => media.push(section.imageUrl));
-  // console.log(media);
   const mediaByIndex = index => media[index % media.length];
 
   const autoplay = useCallback(() => {

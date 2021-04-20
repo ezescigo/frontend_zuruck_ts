@@ -2,7 +2,9 @@ import CollectionsActionTypes from './collections.type';
 
 const INITIAL_STATE = {
   collections: {},
+  query: {},
   isFetching: false,
+  isFetchingQuery: false,
   errorMessage: undefined,
   isLoaded: false,
 };
@@ -33,6 +35,23 @@ const collectionsReducer = (state = INITIAL_STATE, action) => {
         isFetching: false,
         isLoaded: true,
         collections: action.payload
+      }
+    case CollectionsActionTypes.FETCH_QUERY_START:
+      return {
+        ...state,
+        isFetchingQuery: true
+      }
+    case CollectionsActionTypes.FETCH_QUERY_SUCCESS:
+      return {
+        ...state,
+        isFetchingQuery: false,
+        query: action.payload,
+      };
+    case CollectionsActionTypes.FETCH_QUERY_FAILURE:
+      return {
+        ...state,
+        isFetchingQuery: false,
+        errorMessage: action.payload
       }
     default:
       return state;

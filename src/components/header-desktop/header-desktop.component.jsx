@@ -13,7 +13,7 @@ import useMeasure from 'react-use-measure';
 import { usePrevious } from '../../hooks';
 import CartIcon from '../cart-icon/cart-icon.component';
 import CartDropdown from '../cart-dropdown/cart-dropdown.component';
-import SideSearchBox from '../slide-searchbox/slide-searchbox.component';
+import SlideSearchBox from '../slide-searchbox/slide-searchbox.component';
 import { HeaderContainer, OptionsContainer, OptionsContainerTop, OptionsPanel, OptionLink, LogoContainer, LogoText, NavbarMenuContainer, NavbarMenuItem, NavbarContainer, NavbarItem } from './header-desktop.styles.jsx';
 import { useSpring, useTransition, animated, config } from 'react-spring';
 import { toggleCartHidden } from '../../redux/cart/cart.actions';
@@ -98,7 +98,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
         <LogoContainer to='/'>
           <LogoText >ZURÜCK</LogoText>
         </LogoContainer>
-        <SideSearchBox ref={ref} headerWidth={bounds.left} />
+        <SlideSearchBox ref={ref} headerWidth={bounds.left} />
         <OptionsPanel>
           { currentUser ? 
             (
@@ -171,9 +171,9 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
                     item &&
                       <animated.div key={key} style={props}>
                         <NavbarMenuItem
-                        key={item._id}
-                        type='item'
-                        onClick={() => history.push(`/shop/${isActive.category}/${item.slug}`)}>
+                          key={item._id}
+                          type='item'
+                          onClick={() => history.push(`/shop/${isActive.category}/${item.slug}`)}>
                           { item.name }
                         </NavbarMenuItem>
                       </animated.div>

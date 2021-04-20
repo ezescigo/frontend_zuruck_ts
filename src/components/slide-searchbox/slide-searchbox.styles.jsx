@@ -78,4 +78,5 @@ export const SlideNavBar = styled.nav`
   opacity: 1;
   z-index: 40;
   border-radius: 8px;
+  overflow-y: scroll;
 `

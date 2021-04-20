@@ -94,11 +94,11 @@ class App extends React.Component {
               marginTop: '5px',
               fontWeight: '600',
             }}>
-              <a href='https://escigolini.herokuapp.com/'>Personal Web</a>
+              <a target="_blank" href='https://escigolini.herokuapp.com/'>Personal Web</a>
               <br />
-              <a href='https://github.com/EzeScigo'>GitHub</a>
+              <a target="_blank" href='https://github.com/EzeScigo'>GitHub</a>
               <br />
-              <a href='https://www.linkedin.com/in/ezequiel-scigolini/'>LinkedIn</a>
+              <a target="_blank" href='https://www.linkedin.com/in/ezequiel-scigolini/'>LinkedIn</a>
             </div>
           </p>
           <p>

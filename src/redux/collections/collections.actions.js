@@ -19,6 +19,21 @@ export const fetchCollectionsFailure = errorMessage => ({
   payload: errorMessage
 });
 
+export const fetchQueryStart = destination => ({
+  type: CollectionsActionTypes.FETCH_QUERY_START,
+  payload: destination
+});
+
+export const fetchQuerySuccess = (results) => ({
+  type: CollectionsActionTypes.FETCH_QUERY_SUCCESS,
+  payload: results
+});
+
+export const fetchQueryFailure = errorMessage => ({
+  type: CollectionsActionTypes.FETCH_QUERY_FAILURE,
+  payload: errorMessage
+});
+
 export const fetchPreviewStartAsync = () => (dispatch, getState) => {
   const isFetching = getState().collections.isFetching;
   const collections = getState().collections.collections;
@@ -77,25 +92,19 @@ export const fetchCollectionsStartAsync = ({
   }
 };
 
-export const fetchQueryStartAsync = ({
-  category,
-  subcategory,
-}) => {
+export const fetchQueryStartAsync = (query) => {
   return (dispatch, getState) => {
     const isFetching = getState().collections.isFetching;
-    const cat = subcategory || category || '';
-    const apiUrl = `https://zuruck-backend.herokuapp.com/api/products?category=${category}&subcategory=${subcategory}`;
+    const apiUrl = `http://localhost:5600/api/products?query=${query}`
+    // const apiUrl = `https://zuruck-backend.herokuapp.com/api/products?category=${category}&subcategory=${subcategory}`;
 
-    // Only fetch if Category is not already in Collections *1 fetch per session*, can improve it with a timeout or bouncing logic
-    // If no category is asked, thus is for /shop main page, then will get back a bunch of products as a preview.
-    if (!isFetching & (!(cat in getState().collections))) {
-      dispatch(fetchCollectionsStart(apiUrl));
+    if (!isFetching) {
+      dispatch(fetchQueryStart(apiUrl));
 
       try {
         axios.get(apiUrl).then(response => {
-          const data = response.data;
-          const title = cat === '' ? 'preview' : cat;
-          dispatch(fetchCollectionsSuccess(title, data));
+          const results = response.data;
+          dispatch(fetchQuerySuccess(results));
         });
       } catch (error) {
         dispatch(fetchCollectionsFailure(error.message))
