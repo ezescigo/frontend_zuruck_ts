@@ -95,8 +95,7 @@ export const fetchCollectionsStartAsync = ({
 export const fetchQueryStartAsync = (query) => {
   return (dispatch, getState) => {
     const isFetching = getState().collections.isFetching;
-    const apiUrl = `http://localhost:5600/api/products?query=${query}`
-    // const apiUrl = `https://zuruck-backend.herokuapp.com/api/products?category=${category}&subcategory=${subcategory}`;
+    const apiUrl = `http://zuruck-backend.herokuapp.com/api/products?query=${query}`
 
     if (!isFetching) {
       dispatch(fetchQueryStart(apiUrl));
