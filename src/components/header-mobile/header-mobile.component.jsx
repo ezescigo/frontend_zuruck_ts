@@ -25,7 +25,7 @@ import {useSpring, useTransition, animated, config} from 'react-spring';
 import { RiScalesLine } from 'react-icons/ri';
 
 
-const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
+const HeaderMobile = ({ hidden, isxsdevice, currentUser, sections, isLoading,  wishlistItemCount, toggleCartHidden, location }) => {
 
   const slide = useTransition(!hidden, null, {
     from: { opacity: 0, transform: "translateY(0px)", transform: "scale(0)" },
@@ -74,8 +74,7 @@ const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isL
 
   return(
     <HeaderContainer style={{ ...headerContainerStyles, top: visible ? '0' : '-200px' }}>
-      { isMobile && <HeaderSideBar sections={sections} isLoading={isLoading} />}
-      
+      <HeaderSideBar sections={sections} isLoading={isLoading} />
       <LogoContainer to='/' isxsdevice={isxsdevice}>
         <LogoText>ZURÜCK</LogoText>
       </LogoContainer>
@@ -84,10 +83,6 @@ const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isL
         { currentUser ? 
           (
             <OptionLink as='div' onClick={() => auth.signOut()}>
-              { !isMobile
-              ? <span className='sign-salute'>Welcome, {currentUser.displayName}!</span>
-              : null
-              }
               <IoPerson size={30} className='navbar-icon' />
             </OptionLink>
           ) : (
@@ -117,7 +112,7 @@ const HeaderMobile = ({ hidden, isxsdevice, isMobile, currentUser, sections, isL
                       }
               }}
            >
-          <CartIcon mobile={isMobile} isxsdevice={isxsdevice} onClick={() => toggleCartHidden()} />
+          <CartIcon mobile={true} isXsDevice={isxsdevice} onClick={() => toggleCartHidden()} />
         </OptionLink>
       </OptionsContainer>
     </HeaderContainer>

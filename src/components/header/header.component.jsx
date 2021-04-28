@@ -101,7 +101,7 @@ const Header = ( { currentUser, hidden } ) => {
   return (
     <nav>
         {isMobile
-          ? <HeaderMobile sections={sections} isxsdevice={isXs} isMobile={true} />
+          ? <HeaderMobile sections={sections} isxsdevice={isXs} />
           : <HeaderDesktop sections={sections} isxsdevice={false} isMobile={false} />
         }
     </nav>

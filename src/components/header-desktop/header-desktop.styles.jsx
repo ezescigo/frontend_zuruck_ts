@@ -14,12 +14,12 @@ export const HeaderContainer = styled.div`
   padding: 15px 10px 0px 10px;
   background-color: transparent;
   z-index: 30;
-  transition: all 0.3s ease-in-out;
+  transition: all 0.5s ease-in-out;
 
-  :hover {
+  &:hover {
     
-    /* box-shadow: rgba(50, 50, 93, 0.3) 0px 50px 100px -20px, rgba(0, 0, 0, 0.4) 0px 30px 60px -30px, rgba(10, 37, 64, 0.45) 0px -2px 6px 0px inset; */
-    /* -moz-box-shadow:    inset  0 -10px 20px -10px grey;
+    /* box-shadow: rgba(50, 50, 93, 0.3) 0px 50px 100px -20px, rgba(0, 0, 0, 0.4) 0px 30px 60px -30px, rgba(10, 37, 64, 0.45) 0px -2px 6px 0px inset;
+    -moz-box-shadow:    inset  0 -10px 20px -10px grey;
     -webkit-box-shadow: inset  0 -10px 20px -10px grey; */
 
     ${({ styled }) => !styled && 
@@ -35,7 +35,8 @@ export const HeaderContainer = styled.div`
 
 export const LogoContainer = styled(Link)`
   position: relative;
-  margin: auto 15px;
+  margin: auto;
+  margin-left: 5px;
   height: 100%;
   width: auto;
   display: flex;
@@ -82,17 +83,17 @@ export const OptionsContainerTop = styled.div`
 
 export const OptionsPanel = styled.div`
   position: relative;
-  width: auto;
+  width: 20%;
   height: 100%;
   margin-right: 0;
-  padding-right: 50px;
-  width: 350px;
+  padding-right: 30px;
   /* margin-left: auto; */
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  flex: 1; // To centering Logo.
+  flex-shrink: 0;
+  // To centering Logo.
   z-index: 30;
 `;
 
@@ -109,9 +110,9 @@ export const OptionsContainer = styled.div`
 
 export const OptionLink = styled(Link)`
   padding: 5px 0px;
-  margin: auto 15px;
+  margin: auto 5px;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 12px;
   position: relative;
   display: flex;
   align-items: center;

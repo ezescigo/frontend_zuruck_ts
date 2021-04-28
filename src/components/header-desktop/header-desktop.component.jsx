@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { withRouter, useRouteMatch } from 'react-router-dom';
@@ -9,6 +9,9 @@ import { selectIsCollectionFetching } from '../../redux/collections/collections.
 import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selectors';
 import { auth } from '../../firebase/firebase.utils';
 
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+
+import { useOnClickOutside, debounce } from '../../hooks';
 import useMeasure from 'react-use-measure';
 import { usePrevious } from '../../hooks';
 import CartIcon from '../cart-icon/cart-icon.component';
@@ -29,29 +32,11 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
   });
   const prevActive = usePrevious(isActive);
   const [subMenuHidden, setHideSubMenu] = useState(true);
-  const [ref, bounds] = useMeasure();
+  const [refContainer, boundsContainer] = useMeasure();
+  const [refSearchBox, boundsSearchBox] = useMeasure();
   const [submenuItems, setSubmenuItems] = useState([]);
 
-  const { url } = useRouteMatch();
-
-  const slide = useTransition(!hidden, null, {
-    from: { opacity: 0, transform: "translateY(0px)", transform: "scale(0)" },
-    enter: { opacity: 1, transform: "translateY(0px)", transform: "scale(1)" },
-    leave: { opacity: 0, transform: "translateY(-100px)" },
-    });
-
-  const fadeStylesDropdown = useSpring({
-    config: { ...config.slow },
-    // reset: true,
-    // reverse: true,
-    from: { display: 'none', zIndex: -50, opacity: 0, transform: "translateY(-100px)" },
-    to: {
-      display: hidden ? 'none' : 'flex',
-      opacity: !hidden ? 1 : 0,
-      transform: hidden ? "translateY(-100px)" : "translateY(-50px)",
-      zIndex: hidden ? -50 : 30,
-    }
-  });
+  const inputRef = useRef();
 
   const transitionsDropdown = useTransition(!hidden, null, {
     from: { transform: "translateY(-100px)", opacity: 0 },
@@ -63,7 +48,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
     from : { height: 0, zIndex: 0, opacity: 0 },
     enter: { height: 200, zIndex: 10, opacity: 1 },
     leave: { height: 0, zIndex: 0, opacity: 0 },
-    config: !subMenuHidden ? { ...config.slow } : { ...config.slow, duration: 400 }
+    config: !subMenuHidden ? { ...config.slow } : { ...config.stiff }
   });
 
   const transitionSubnavbarItem = useTransition(submenuItems, submenuItem => submenuItem._id, {
@@ -72,6 +57,36 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
     leave: { opacity: 0, transform: 'translateY(-300px)', display: 'none' },
     config: submenuItems ? { ...config.stiff } : { ...config.stiff, duration: 100 }
   });
+
+  // START HIDE-FUNCTIONALITY HANDLER WHILE SCROLLING //
+  const [state, setState] = useState({
+    prevScrollPos: 0,
+    visible: true
+  });
+
+  const { prevScrollPos, visible } = state;
+  const handleScroll = debounce(() => {
+    const currentScrollPos = window.pageYOffset;
+    const visible = (prevScrollPos > currentScrollPos && prevScrollPos - currentScrollPos > 30) || window.scrollY < 100;
+  
+    setState({
+      prevScrollPos: currentScrollPos,
+      visible: visible
+    });
+  }, 50);
+
+  useEffect(() => {
+    // scroll listener setup when mounted.
+      window.addEventListener('scroll', handleScroll);
+    // cleaning up listener
+    return () => window.removeEventListener('scroll', handleScroll);
+  },[prevScrollPos, visible]);
+
+  const headerContainerStyles = {
+    transition: 'top 0.6s ease' 
+  }
+
+  // END HIDE-FUNCTIONALITY HANDLER WHILE SCROLLING //
 
   const handleShowSubcategories = () => {
     setHideSubMenu(false);
@@ -92,26 +107,27 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
 
   return(
     <HeaderContainer 
-      styled={location.pathname === '/' ? false : true}
+      style={{ ...headerContainerStyles, top: visible ? '0' : '-200px' }}
+      styled={location.pathname === '/' ? null : 'styled'}
       onMouseLeave={() => setIsActive({ category: '' })}>
-      <OptionsContainerTop>
-        <LogoContainer to='/'>
+      <OptionsContainerTop ref={refContainer}>
+        <LogoContainer ref={refSearchBox} to='/'>
           <LogoText >ZURÜCK</LogoText>
         </LogoContainer>
-        <SlideSearchBox ref={ref} headerWidth={bounds.left} />
+        <SlideSearchBox headerWidthRight={boundsContainer.right} headerWidthLeft={boundsSearchBox.right} />
         <OptionsPanel>
           { currentUser ? 
             (
-              <OptionLink as='div' onClick={() => auth.signOut()} styled={location.pathname === '/' ? false : true}>
+              <OptionLink as='div' onClick={() => auth.signOut()} styled={location.pathname === '/' ? null : 'styled'}>
                 { !isMobile
                 ? <span className='sign-salute'>Welcome, {currentUser.displayName}!</span>
                 : null
                 }
-                <IoPerson size={30} className='navbar-icon' />
+                <IoPerson size={22} className='navbar-icon' />
               </OptionLink>
             ) : (
-              <OptionLink to='/signin' styled={location.pathname === '/' ? false : true}>
-                <IoPersonOutline size={30} className='navbar-icon' />
+              <OptionLink to='/signin' styled={location.pathname === '/' ? null : 'styled'}>
+                <IoPersonOutline size={22} className='navbar-icon' />
               </OptionLink>
             )}
           <OptionLink to={{ 
@@ -120,18 +136,18 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
                      active: 'wishlist' 
                     }
           }} 
-            styled={location.pathname === '/' ? false : true}
+            styled={location.pathname === '/' ? null : 'styled'}
           >
             { wishlistItemCount > 0
               ? (<div>
-                  <AiFillHeart size={30} className='navbar-icon' onClick={() => toggleCartHidden('wishlist')} />
+                  <AiFillHeart size={22} className='navbar-icon' onClick={() => toggleCartHidden('wishlist')} />
                 </div>)
-              : <AiOutlineHeart size={30} className='navbar-icon' onClick={() => toggleCartHidden('wishlist')} />
+              : <AiOutlineHeart size={22} className='navbar-icon' onClick={() => toggleCartHidden('wishlist')} />
             }
               
           </OptionLink>
-          <OptionLink to='#' styled={location.pathname === '/' ? false : true}>
-            <CartIcon mobile={isMobile} isxsdevice={isxsdevice} onClick={() => toggleCartHidden('cart')} />
+          <OptionLink to='#' styled={location.pathname === '/' ? null : 'styled'}>
+            <CartIcon mobile={isMobile} isXsDevice={isxsdevice} onClick={() => toggleCartHidden('cart')} />
           </OptionLink>
         </OptionsPanel>
       </OptionsContainerTop>
@@ -140,7 +156,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
       )}
       
       <OptionsContainer 
-        onMouseEnter={() => setIsActive({ category: isActive || prevActive })}
+        onMouseEnter={() => isActive.category && setIsActive({ category: isActive || prevActive })}
         onMouseLeave={() => setIsActive({ category: '' })}
       >
         <NavbarContainer>
@@ -150,7 +166,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
               onMouseEnter={() => {setIsActive({ category: category.slug })}}
               onMouseLeave={() => {setIsActive({ category: '' })}}
               onClick={() => history.push(`/shop/${category.slug}`)}
-              styled={location.pathname === '/' ? false : true}
+              styled={location.pathname === '/' ? null : 'styled'}
             >
               {category.name}
             </NavbarItem>
@@ -163,7 +179,7 @@ const HeaderDesktop = ({  isxsdevice, isMobile, hidden, isLoading, categories, c
           <animated.div key={key} style={props}>
             <OptionsContainer 
               onMouseEnter={() => setIsActive({ category: isActive.category })}
-              onMouseLeave={() => setIsActive({ category: '' })}
+              onMouseLeave={() => setHideSubMenu(false)}
             >
               <NavbarMenuContainer>
                 { transitionSubnavbarItem.map(
