@@ -5,8 +5,8 @@ import { createStructuredSelector } from 'reselect';
 
 import './App.css';
 
-import Rodal from 'rodal';
-import 'rodal/lib/rodal.css';
+// import Rodal from 'rodal';
+// import 'rodal/lib/rodal.css';
 
 import Header from './components/header/header.component';
 import HomePage from './pages/homepage/homepage.component';
@@ -76,7 +76,7 @@ class App extends React.Component {
 
     return (
       <div className='wrapper'>
-        <Rodal
+        {/* <Rodal
           visible={this.state.popUp}
           onClose={() => this.setState({ popUp: false })}
           animation={'zoom'}
@@ -106,7 +106,7 @@ class App extends React.Component {
               <br />
               Ezequiel.
             </p>
-        </Rodal>
+        </Rodal> */}
         {this.props.isLoading
           ? (<SpinnerOverlay>
             <SpinnerContainer />
