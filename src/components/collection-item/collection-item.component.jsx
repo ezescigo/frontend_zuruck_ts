@@ -56,7 +56,7 @@ const CollectionItem = ({ mobileView, item, fav, addItem, toggleFav, updateWishl
   };
 
   const handleOnClickAdd = (item) => {
-    openCartDropdown();
+    //openCartDropdown();
     addItem(item);
   }
 
