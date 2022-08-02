@@ -1,10 +1,11 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import CategoriesActionTypes from './categories.type';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { ListToTree } from './categories.utils';
 import { Category } from '../../models/category';
+import data from '../collections/data';
+import axios from 'axios';
 
 interface CategoriesState {
-  categories: any[] | null,
+  categories: Category[] | null,
   isFetching: boolean,
   isLoaded: boolean,
   errorMessage: any
@@ -16,38 +17,6 @@ const initialState: CategoriesState = {
   isLoaded: false,
   errorMessage: undefined
 }
-
-// const categoriesReducer = (state = INITIAL_STATE, action) => {
-//   switch (action.type) {
-//     case CategoriesActionTypes.FETCH_CATEGORIES_START:
-//       return {
-//         ...state,
-//         isFetching: true
-//       };
-//     case CategoriesActionTypes.FETCH_CATEGORIES_SUCCESS:
-//       return {
-//         ...state,
-//         isFetching: false,
-//         isLoaded: true,
-//         categories: ListToTree(action.payload)
-//       };
-//     case CategoriesActionTypes.FETCH_CATEGORIES_FAILURE:
-//       return {
-//         ...state,
-//         isFetching: false,
-//         errorMessage: action.payload
-//       };
-//     case CategoriesActionTypes.FETCH_CATEGORIES_OFFLINE:
-//       return {
-//         ...state,
-//         isFetching: false,
-//         isLoaded: true,
-//         categories: ListToTree(action.payload)
-//       }
-//     default:
-//       return state;
-//   }
-// };
 
 export const categoriesSlice = createSlice({
   name: 'categories',
@@ -67,7 +36,38 @@ export const categoriesSlice = createSlice({
     fetchCategoriesOffline: (state, action: PayloadAction<Category>) => {
       state.isFetching = false;
       state.isLoaded = true;
-      state.categories = ListToTree(action.payload)
+      state.categories = ListToTree(data.categories)
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchCategoriesStartAsync.pending, (state) => {
+        state.isFetching = true;
+      })
+      .addCase(fetchCategoriesStartAsync.fulfilled, (state, action) => {
+        state.isFetching = false;
+        state.categories = action.payload;
+      })
+      .addCase(fetchCategoriesStartAsync.rejected, (state) => {
+        state.isFetching = false;
+        state.errorMessage = 'Request failed'
+      })
   }
 })
+
+export const fetchCategoriesStartAsync = createAsyncThunk(
+  'categories/fetchCategories',
+  async () => {
+    // TODO: infrastructure layer - API's endpoints.
+    const response = await axios.get('https://zuruck-backend.herokuapp.com/api/category');
+    return response.data;
+  }
+)
+
+export const { fetchCategoriesStart, fetchCategoriesSuccess, fetchCategoriesFailure, fetchCategoriesOffline } = categoriesSlice.actions;
+
+export const selectCategoriesList = (state: CategoriesState) => state.categories;
+export const selectIsCategoriesFetching = (state: CategoriesState) => state.isFetching;
+export const selectIsCategoriesLoaded = (state: CategoriesState) => !!state.categories;
+
+export default categoriesSlice.reducer;
