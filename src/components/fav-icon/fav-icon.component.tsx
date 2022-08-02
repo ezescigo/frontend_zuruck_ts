@@ -10,7 +10,15 @@ import { selectIsXs } from '../../redux/app/app.selectors';
 import './fav-icon.styles.scss';
 import { RiHeartLine, RiHeartFill } from 'react-icons/ri';
 
-const FavIcon = ({ show, onClick, isXsDevice, isFav, disabled, itemCount }) => {
+interface FavIconProps {
+  show: Boolean;
+  onClick: () => void;
+  isFav: Boolean;
+  disabled?: Boolean;
+  isXsDevice?: Boolean;
+}
+
+const FavIcon = ({ show, onClick, isFav, disabled = false, isXsDevice = false }: FavIconProps) => {
   const size = {
     default: '28',
     xsDevice: '22'
@@ -38,7 +46,6 @@ const FavIcon = ({ show, onClick, isXsDevice, isFav, disabled, itemCount }) => {
   <animated.div
     className='fav-icon-container'
     onClick={handleOnClick}
-    isFav={isFav}
     style={{ ...style, display: show ? 'flex' : isFav ? 'flex' : 'none' }}>
       {(isFav)
       ? <RiHeartFill size={iconSize} />

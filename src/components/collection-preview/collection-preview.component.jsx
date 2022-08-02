@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectWishlistItems } from '../../redux/wishlist/wishlist.selectors';
 
-import CollectionItem from '../collection-item/collection-item.component.jsx';
+import CollectionItem from '../collection-item/collection-item.component';
 
 import { Slider } from '@lifarl/react-scroll-snap-slider';
 

@@ -6,7 +6,7 @@ import { createStructuredSelector } from 'reselect';
 import CollectionItem from '../collection-item/collection-item.component';
 import CustomButton from '../custom-button/custom-button.component';
 import CheckOutItem from '../checkout-item/checkout-item.component';
-import StripeCheckoutButton from '../../components/stripe-button/stripe-button.component';
+import StripeCheckoutButton from '../stripe-button/stripe-button.component';
 import { RiShoppingCartFill } from 'react-icons/ri';
 import { AiFillHeart } from 'react-icons/ai';
 
