@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import { selectMobileView } from '../../redux/app/app.selectors';

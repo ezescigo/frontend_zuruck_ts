@@ -1,4 +1,4 @@
-import { createSelector } from 'reselect';
+import { createSelector } from '@reduxjs/toolkit';
 
 const selectWishlist = state => state.wishlist;
 

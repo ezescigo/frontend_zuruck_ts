@@ -19,7 +19,7 @@ interface UseBoopProps {
 
 type Trigger = () => void;
 
-const useBoop = ({
+export const useBoop = ({
     x = 0,
     y = 0,
     rotation = 0,
@@ -64,4 +64,3 @@ const useBoop = ({
   //return [appliedStyle, trigger];
   return [trigger]
 }
-export default useBoop;
