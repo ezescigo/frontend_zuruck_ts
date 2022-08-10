@@ -1,3 +1,3 @@
 export { useAppDispatch } from './useAppDispatch';
-export { useAppSelector } from './useAppSelector';
+export { useAppSelector, useCartSelector, useCategoriesSelector, useCollectionsSelector, useUserSelector, useWishlistSelector } from './useAppSelector';
 export { useBoop } from './useBoop';
