@@ -56,8 +56,8 @@ const CollectionPage = ({ collection, wishlist, match }) => {
       <div className='items'>
         {collection.map(item => {
           return wishlist.find(wishlistItem => wishlistItem._id === item._id)
-          ? <CollectionItem key={item._id} item={item} fav />
-          : <CollectionItem key={item._id} item={item} />        
+            ? <CollectionItem key={item._id} item={item} fav />
+            : <CollectionItem key={item._id} item={item} />        
           }
         )}
       </div>
