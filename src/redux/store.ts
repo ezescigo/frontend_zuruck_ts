@@ -4,7 +4,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import thunk from 'redux-thunk';
 
 import appReducer from './app/app.slice';
-import userReducer from './user/user.reducer';
+import userReducer from './user/user.slice';
 import cartReducer from './cart/cart.slice';
 import categoriesReducer from './categories/categories.slice';
 import collectionsReducer from './collections/collections.slice';
