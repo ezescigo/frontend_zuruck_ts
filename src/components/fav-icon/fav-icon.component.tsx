@@ -1,14 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import useBoop from '../../hooks/useBoop';
-import { createStructuredSelector } from 'reselect';
+import { useBoop } from '../../hooks/useBoop';
 import { animated } from 'react-spring';
-
-import { selectWishlistItemsCount } from '../../redux/wishlist/wishlist.selectors';
-import { selectIsXs } from '../../redux/app/app.selectors';
 
 import './fav-icon.styles.scss';
 import { RiHeartLine, RiHeartFill } from 'react-icons/ri';
+import { useAppSelector } from '../../hooks';
+import { selectIsXs } from '../../redux/app';
 
 interface FavIconProps {
   show: Boolean;
@@ -18,20 +15,20 @@ interface FavIconProps {
   isXsDevice?: Boolean;
 }
 
-const FavIcon = ({ show, onClick, isFav, disabled = false, isXsDevice = false }: FavIconProps) => {
+const FavIcon = ({ show, onClick, isFav, disabled = false }: FavIconProps) => {
   const size = {
     default: '28',
     xsDevice: '22'
   }
   const [iconSize, setIconSize] = useState(size.default)
   const [style, trigger] = useBoop({ scale: 1.2 });
+  const isXsDevice = useAppSelector(selectIsXs);
   
   const handleOnClick = () => {
     onClick();
     if (!disabled) {
       trigger();
     }
-    
   }
 
   useEffect(() => {
@@ -54,12 +51,4 @@ const FavIcon = ({ show, onClick, isFav, disabled = false, isXsDevice = false }:
   </animated.div>
 )};
 
-const mapStateToProps = createStructuredSelector({
-  itemCount: selectWishlistItemsCount,
-  isXsDevice: selectIsXs
-});
-
-export default connect(mapStateToProps, null)(FavIcon);
-
-// ? <FavIconOn className='fav-icon' />
-//     : <FavIconOff className='fav-icon' />
+export default FavIcon;

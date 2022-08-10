@@ -37,7 +37,7 @@ export const wishlistSlice = createSlice({
   }
 });
 
-export const { queueForRemoval, queueForAdd, undo, updateWishlist, clearWishlist } = wishlistSlice.actions;
+export const { queueForRemoval, queueForAdd, undo, updateWishlist, clearWishlist, toggleWishlistItem } = wishlistSlice.actions;
 
 export const selectWishlistItems = (state: WishlistState) => state.wishlistItemsIds;
 export const selectAllFavItems = (state: WishlistState) => [...state.wishlistItemsIds, ...state.itemIdsToAdd];

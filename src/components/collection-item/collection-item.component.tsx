@@ -1,39 +1,31 @@
-import React, { useState, useRef } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { selectMobileView } from '../../redux/app/app.selectors';
+import React, { useState } from 'react';
 
 import { toast } from 'react-toastify';
-
-import { addItem, openCartDropdown } from '../../redux/cart/cart.actions';
-import { toggleWishlistItem, updateWishlist } from '../../redux/wishlist/wishlist.actions';
 
 import FavIcon from '../fav-icon/fav-icon.component';
 import Undo from '../undo-toast/undo-toast.component';
 
 import { CollectionItemContainer, CollectionFooterContainer, BackgroundImage, NameContainer, PriceContainer, AddButton } from './collection-item.styles';
-import { Action, Dispatch } from 'redux';
-import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk'
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { Item } from '../../models/item';
+import { selectMobileView } from '../../redux/app';
+import { updateWishlist } from '../../redux/wishlist';
+import { toggleWishlistItem } from '../../redux/wishlist/wishlist.slice';
+import { addItem } from '../../redux/cart/cart.slice';
 
-interface CollectionItem extends PropsFromState, PropsFromDispatch {
-  item: any;
-  fav?: any;
+interface CollectionItem {
+  item: Item;
+  fav?: boolean;
 }
 
-const CollectionItem = ({ mobileView, item, fav, addItem, toggleWishlistItem, updateWishlist, openCartDropdown }: CollectionItem) => {
+const CollectionItem = ({ item, fav = false }: CollectionItem) => {
   const { name, price, imageUrl } = item;
+  const mobileView = useAppSelector(selectMobileView);
+  const dispatch = useAppDispatch();
+
   const [isFav, setFav] = useState<boolean>(fav);
   const [isDisabled, setDisabled] = useState<boolean>(false);
   const [isHovered, setIsHovered] = useState(mobileView);
-  const firstUpdate = useRef(true);
-  
-  // useLayoutEffect(() => {
-  //   if (firstUpdate.current) {
-  //     setFav(fav);
-  //     setDisabled(false);
-  //     firstUpdate.current = false;
-  //   }
-  // }, []);
 
   const undo = () => {
     setFav(currentIsFav => !currentIsFav);
@@ -51,20 +43,20 @@ const CollectionItem = ({ mobileView, item, fav, addItem, toggleWishlistItem, up
     } else {
       setDisabled(true);
       setFav(currentIsFav => !currentIsFav);
-      toggleWishlistItem(item);
+      dispatch(toggleWishlistItem(item._id))
       toast(
         <Undo removed={isFav} item={item} onUndo={() => undo()} />,
         {onClose: () => {
-          updateWishlist();
+          dispatch(updateWishlist());
           setDisabled(false)}
         }
       );
     }
   };
 
-  const handleOnClickAdd = (item) => {
-    //openCartDropdown();
-    addItem(item);
+  const handleOnClickAdd = () => {
+    //dispatch(openCartDropdown())
+    dispatch(addItem(item));
   }
 
   return (
@@ -78,33 +70,8 @@ const CollectionItem = ({ mobileView, item, fav, addItem, toggleWishlistItem, up
       <PriceContainer>${price}</PriceContainer>
     </CollectionFooterContainer>
     <FavIcon show={isHovered} isFav={isFav} onClick={handleOnClickFav} disabled={isDisabled}/>
-    <AddButton mobile={mobileView} inverted onClick={() => handleOnClickAdd(item)}>Add to cart</AddButton>
+    <AddButton mobile={mobileView} inverted onClick={handleOnClickAdd}>Add to cart</AddButton>
   </CollectionItemContainer>
 )};
 
-interface PropsFromDispatch {
-  addItem: (item: any) => void;
-  toggleWishlistItem: (item: any) => void;
-  updateWishlist: () => void;
-  openCartDropdown: () => void;
-}
-
-interface PropsFromState {
-  mobileView: any;
-}
-
-const mapStateToProps = createStructuredSelector({
-  mobileView: selectMobileView
-});
-
-const mapDispatchToProps = (dispatch: Dispatch<Action<any>> | ThunkDispatch<ThunkAction<any, any, any, any>>): PropsFromDispatch => ({
-  addItem: item => dispatch(addItem(item)),
-  toggleWishlistItem: item => dispatch(toggleWishlistItem(item)),
-  updateWishlist: () => dispatch(updateWishlist()),
-  openCartDropdown: () => dispatch(openCartDropdown())
-});
-
-export default connect(
-  null,
-  mapDispatchToProps
-)(CollectionItem);
+export default CollectionItem;
