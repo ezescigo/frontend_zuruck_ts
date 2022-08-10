@@ -8,9 +8,13 @@ import './cart-icon.styles.scss';
 import { useCartSelector } from '../../hooks';
 import { selectCartItemsCount } from '../../redux/cart/cart.slice';
 
+interface CartIcon {
+  onClick: () => void;
+  mobile: boolean;
+  isXsDevice: boolean;
+}
 
-
-const CartIcon = ({ onClick, mobile, isXsDevice }) => {
+const CartIcon = ({ onClick, mobile, isXsDevice }: CartIcon) => {
   const [style, trigger] = useBoop({ y: -10 });
   const size = {
     default: '22',
