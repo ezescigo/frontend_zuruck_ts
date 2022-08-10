@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createStructuredSelector } from 'reselect';
-import { animated } from 'react-spring';
-import useBoop from '../../hooks/useBoop';
-
-import { selectCartItemsCount } from '../../redux/cart/cart.selectors';
+import { animated } from '@react-spring/web';
+import { useBoop } from '../../hooks/useBoop';
 
 import { RiShoppingCartLine, RiShoppingCartFill } from 'react-icons/ri';
 
 import './cart-icon.styles.scss';
+import { useCartSelector } from '../../hooks';
+import { selectCartItemsCount } from '../../redux/cart/cart.slice';
 
-const CartIcon = ({ onClick, itemCount, mobile, isXsDevice }) => {
+interface CartIcon {
+  onClick: () => void;
+  mobile: boolean;
+  isXsDevice: boolean;
+}
+
+const CartIcon = ({ onClick, mobile, isXsDevice }: CartIcon) => {
   const [style, trigger] = useBoop({ y: -10 });
   const size = {
     default: '22',
     xsDevice: '22'
   };
-  let iconSizeSeed = isXsDevice ? size.xsDevice : size.default;
+  const iconSizeSeed = isXsDevice ? size.xsDevice : size.default;
+  const itemCount = useCartSelector(selectCartItemsCount);
   const [iconSize, setIconSize] = useState(iconSizeSeed);
 
   useEffect(() => {
@@ -50,12 +55,5 @@ const CartIcon = ({ onClick, itemCount, mobile, isXsDevice }) => {
   </animated.div>
 )};
 
-const mapStateToProps = createStructuredSelector({
-  itemCount: selectCartItemsCount
-});
-
-export default connect(
-  mapStateToProps,
-  null
-)(CartIcon);
+export default CartIcon;
 

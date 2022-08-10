@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { CSSProperties } from 'react';
 import { useSpring } from 'react-spring';
+import { AnimatedProps } from '@react-spring/web';
 // UPDATE this path to your copy of the hook!
 // Source here: https://joshwcomeau.com/snippets/react-hooks/use-prefers-reduced-motion
 // import usePrefersReducedMotion from '@hooks/use-prefers-reduced-motion.hook';
@@ -29,7 +30,7 @@ export const useBoop = ({
       tension: 300,
       friction: 10,
     },
-  }: UseBoopProps): Trigger[] => {
+  }: UseBoopProps): [AnimatedProps<CSSProperties>, Trigger] => {
   // const prefersReducedMotion = usePrefersReducedMotion();
   const [isBooped, setIsBooped] = React.useState(false);
   const style = useSpring({
@@ -61,6 +62,6 @@ export const useBoop = ({
   // let appliedStyle = prefersReducedMotion ? {} : style;
 
   let appliedStyle = style;
-  //return [appliedStyle, trigger];
-  return [trigger]
+  return [appliedStyle, trigger];
+  //return [trigger]
 }

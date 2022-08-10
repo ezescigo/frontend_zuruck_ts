@@ -1,29 +1,30 @@
-import React, { useRef, useCallback, useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import React, { useRef, useState, useEffect } from 'react';
 import useDebounce from '../../hooks/useDebounce';
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
 
-import { createStructuredSelector } from 'reselect';
-
-import { useSpring, useTransition, animated, config } from 'react-spring';
+import { useSpring, animated, config } from 'react-spring';
 
 import { Cover, SlideNavBar, SearchBoxContainer, SearchBox } from './slide-searchbox.styles.jsx';
 import { BiSearchAlt as SearchIcon } from 'react-icons/bi';
 import { GrFormClose as CloseSlide } from 'react-icons/gr';
-import { fetchQueryStartAsync } from '../../redux/collections/collections.actions';
-import { selectCategoriesList } from '../../redux/categories/categories.selectors';
-import { selectQueryResults, selectIsFetchingQuery } from '../../redux/collections/collections.selectors';
 
 import CheckOutItem from '../checkout-item/checkout-item.component';
 import './slide-searchbox.styles';
+import { useAppDispatch, useCategoriesSelector, useCollectionsSelector } from '../../hooks';
+import { fetchQuery, selectIsFetchingQuery, selectQueryResults } from '../../redux/collections/collections.slice';
+import { selectCategoriesList } from '../../redux/categories/categories.slice';
 
-const SlideSearchBox = ({ isLoading, headerWidthLeft, headerWidthRight, queryResults = [] }) => {
+const SlideSearchBox = ({ headerWidthLeft, headerWidthRight }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [showSearchInput, setShowSearchInput] = useState(false);
-  const [debouncedQueryInput, setDebouncedQueryInput] = useDebounce('');
-  const dispatch = useDispatch();
+  const [debouncedQueryInput, setDebouncedQueryInput] = useDebouncedState<string>('');
+  const dispatch = useAppDispatch();
   const widthTarget = String(parseInt(headerWidthRight) - parseInt(headerWidthLeft) - 550);
   const inputRef = useRef(null);
+
+  const isLoading = useCollectionsSelector(selectIsFetchingQuery);
+  const queryResults = useCollectionsSelector(selectQueryResults);
+  const sections = useCategoriesSelector(selectCategoriesList);
 
   const toggleDrawer = (toggle) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -98,7 +99,7 @@ const SlideSearchBox = ({ isLoading, headerWidthLeft, headerWidthRight, queryRes
   useEffect(() => {
     if (debouncedQueryInput !== '') {
       console.log(debouncedQueryInput);
-      dispatch(fetchQueryStartAsync(debouncedQueryInput));
+      dispatch(fetchQuery({ category: debouncedQueryInput }));
     };
 
   },[debouncedQueryInput]);
@@ -112,11 +113,11 @@ const SlideSearchBox = ({ isLoading, headerWidthLeft, headerWidthRight, queryRes
       </SearchBoxContainer>
       <Cover active={drawerOpen} onClick={toggleDrawer(!drawerOpen)} />
       <SlideNavBar as={animated.div} style={fadeStyles} ref={inputRef} open={drawerOpen}>    
-        { queryResults.products && (queryResults.products.length > 0) &&
+        { queryResults && (queryResults.length > 0) &&
           <animated.div style={resultsAnimations} className='links-container'>
             <h2 className='title-searchbar'>Products</h2>
-            {queryResults.products.map(product => 
-              <CheckOutItem key={product._id} cartItem={product}/>
+            {queryResults.map(item => 
+              <CheckOutItem key={item._id} cartItem={item}/>
               )}
           </animated.div>  
         }
@@ -132,8 +133,8 @@ const SlideSearchBox = ({ isLoading, headerWidthLeft, headerWidthRight, queryRes
           <div className='link-searchbar'><p>patagonia pack</p></div>
           <div className='link-searchbar'><p>whiskies</p></div>
         </animated.div>
-        {queryResults.categories && queryResults.categories.length
-          ? queryResults.categories.map(category => <div>{category.name}</div>)
+        {queryResults && queryResults.length > 0
+          ? queryResults.map(i => i.categoryIds.map(category => <div>{category}</div>))
           : <></>
         }
       </SlideNavBar>
@@ -141,11 +142,9 @@ const SlideSearchBox = ({ isLoading, headerWidthLeft, headerWidthRight, queryRes
   )
 };
 
-const mapStateToProps = createStructuredSelector({
-  sections: selectCategoriesList,
-  queryResults: selectQueryResults,
-  isLoading: selectIsFetchingQuery
-});
+export default SlideSearchBox;
 
-export default connect(mapStateToProps)(SlideSearchBox);
+function useDebouncedState<T>(arg0: string): [any, any] {
+  throw new Error('Function not implemented.');
+}
 
