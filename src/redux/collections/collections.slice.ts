@@ -143,6 +143,8 @@ export const selectIsFetchingQuery = (state: CollectionsState) => state.isFetchi
 
 export const selectIsCollectionsLoaded = (state: CollectionsState) => state.isLoaded
 
+export default collectionsSlice.reducer;
+
 // export const selectCollection = (category, subcategory) => createSelector(
 //     [selectCollections],
 //     collections => (collections
