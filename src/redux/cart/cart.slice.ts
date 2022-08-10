@@ -25,13 +25,13 @@ export const cartSlice = createSlice({
       state.menuActive = action.payload
     },
     addItem: (state, action: PayloadAction<Item>) => {
-      cartItems: addItemToCart(state.cartItems, action.payload)
+      state.cartItems = addItemToCart(state.cartItems, action.payload)
     },
     removeItem: (state, action: PayloadAction<Item>) => {
-      cartItems: removeItemFromCart(state.cartItems, action.payload)
+      state.cartItems = removeItemFromCart(state.cartItems, action.payload)
     },
     clearItemFromCart: (state, action: PayloadAction<Item>) => {
-      cartItems: state.cartItems.filter(cartItem => cartItem._id !== action.payload._id)
+      state.cartItems = state.cartItems.filter(cartItem => cartItem._id !== action.payload._id)
     },
   }
 })

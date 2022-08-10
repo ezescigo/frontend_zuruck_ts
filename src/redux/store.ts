@@ -3,12 +3,12 @@ import { configureStore } from '@reduxjs/toolkit'
 //import logger from 'redux-logger';
 import thunk from 'redux-thunk';
 
-import appReducer from './app/app.reducer';
+import appReducer from './app/app.slice';
 import userReducer from './user/user.reducer';
-import cartReducer from './cart/cart.reducer';
+import cartReducer from './cart/cart.slice';
 import categoriesReducer from './categories/categories.slice';
-import collectionsReducer from './collections/collections.reducer';
-import wishlistReducer from './wishlist/wishlist.reducer';
+import collectionsReducer from './collections/collections.slice';
+import wishlistReducer from './wishlist/wishlist.slice';
 
 //const middlewares = [thunk];
 
