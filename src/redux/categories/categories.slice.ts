@@ -4,7 +4,7 @@ import { Category } from '../../models/category';
 import data from '../collections/data';
 import axios from 'axios';
 
-interface CategoriesState {
+export interface CategoriesState {
   categories: Category[] | null,
   isFetching: boolean,
   isLoaded: boolean,
